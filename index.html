@@ -121,7 +121,7 @@ letter-spacing: 0.3px;
 .section-header {
 max-width: 780px;
 margin: 0 auto;
-padding: 52px 32px 28px;
+padding: 36px 32px 16px;
 display: flex;
 justify-content: space-between;
 align-items: baseline;
@@ -490,29 +490,34 @@ animation: fadeUp 0.5s ease both;
 <nav>
   <a href="#" class="nav-logo">Paola Builds</a>
   <div class="nav-links">
-    <a href="#projects">Projects</a>
+    <a href="#projects">Try the Tools</a>
     <a href="#writing">Writing</a>
+    <a href="#contact">Contact</a>
     <a href="#about">About</a>
   </div>
 </nav>
 
 <section class="hero">
-  <div class="hero-eyebrow">Policy Analyst · Builder · First-time Mom</div>
-  <h1>Building things<br/>with <em>curiosity</em><br/>and code.</h1>
-  <p class="hero-bio">I'm Paola — a policy analyst who discovered vibe coding. I build tools that solve real problems: study trackers, news briefings, and whatever comes next. No CS degree required.</p>
+  <div class="hero-eyebrow">Free Tools · Built with AI · No Sign-up Required</div>
+  <h1>Tools built for<br/>real life — <em>not</em><br/>perfect conditions.</h1>
+  <p class="hero-bio">I'm Paola — a policy analyst and builder. I make free tools for people with too much to do and not enough time: news briefings, study trackers, and quick-capture apps. Everything here is free to use, right now.</p>
+  <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:28px">
+    <a href="#projects" style="background:var(--accent);color:white;padding:12px 24px;border-radius:6px;text-decoration:none;font-size:14px;font-weight:500;">Try the tools →</a>
+    <a href="#contact" style="background:transparent;color:var(--accent);padding:12px 24px;border-radius:6px;text-decoration:none;font-size:14px;border:1px solid var(--accent);">Get updates</a>
+  </div>
   <div class="hero-tags">
-    <span class="tag">Social Policy</span>
-    <span class="tag">AI Tools</span>
-    <span class="tag">Vibe Coding</span>
-    <span class="tag">LSAT 2026</span>
-    <span class="tag">New Jersey</span>
+    <span class="tag">Free to use</span>
+    <span class="tag">No sign-up</span>
+    <span class="tag">Mobile-friendly</span>
+    <span class="tag">AI-powered</span>
+    <span class="tag">Built by a human</span>
   </div>
 </section>
 
 <!-- PROJECTS -->
 
 <div class="section-header" id="projects">
-  <div class="section-title">Projects</div>
+  <div class="section-title">Free Tools</div>
   <div class="section-count" id="project-count">3 BUILDS</div>
 </div>
 
@@ -522,12 +527,12 @@ animation: fadeUp 0.5s ease both;
     <div>
       <div class="project-meta">
         <span class="project-dot"></span>
-        <span>Apr 2025</span>
+        <span>Apr 2026</span>
         <span>·</span>
         <span>Live</span>
       </div>
       <div class="project-title">Citizen Brief</div>
-      <div class="project-desc">An AI-powered daily news briefing tool with animated SVG anchors and live policy news. Built for communications and policy directors at nonprofits and advocacy organizations.</div>
+      <div class="project-desc">Your daily policy news briefing — read aloud by AI anchors with live tickers and opinion cards. Built for nonprofit teams, policy directors, and anyone who needs to stay informed without spending an hour reading.</div>
       <div class="project-stack">
         <span class="stack-tag">HTML</span>
         <span class="stack-tag">JavaScript</span>
@@ -546,12 +551,12 @@ animation: fadeUp 0.5s ease both;
     <div>
       <div class="project-meta">
         <span class="project-dot"></span>
-        <span>Apr 2025</span>
+        <span>Apr 2026</span>
         <span>·</span>
         <span>Live</span>
       </div>
       <div class="project-title">LSAT Study Tracker</div>
-      <div class="project-desc">A mobile-first daily study tracker built for a busy first-time mom preparing for the August LSAT. 15-week plan, ADHD-friendly, with checkoffs that save to your phone.</div>
+      <div class="project-desc">A 15-week LSAT study plan for people with 30–45 minutes a day. Tap any day to see exactly what to do. Works on your phone. ADHD-friendly. Free.</div>
       <div class="project-stack">
         <span class="stack-tag">HTML</span>
         <span class="stack-tag">CSS</span>
@@ -568,12 +573,12 @@ animation: fadeUp 0.5s ease both;
     <div>
       <div class="project-meta">
         <span class="project-dot"></span>
-        <span>Apr 2025</span>
+        <span>Apr 2026</span>
         <span>·</span>
         <span>Live</span>
       </div>
       <div class="project-title">Mom Brain</div>
-      <div class="project-desc">A quick-capture app for new moms built for stolen nap-time moments. Type any thought and AI automatically sorts it into Baby, Work, LSAT, Feelings, or Random. Everything saves to your phone.</div>
+      <div class="project-desc">A quick-capture app for new moms. Type any thought in seconds — AI sorts it into Baby, Work, Study, Feelings, or Random automatically. Built for nap-time windows. No login, no friction.</div>
       <div class="project-stack">
         <span class="stack-tag">HTML</span>
         <span class="stack-tag">JavaScript</span>
@@ -596,15 +601,11 @@ animation: fadeUp 0.5s ease both;
   <div class="section-count" id="post-count">0 POSTS</div>
 </div>
 
-<div class="posts" id="posts-list">
-  <div style="padding: 40px 0; color: var(--ink4); font-size: 14px; font-style: italic;">
-    No posts yet — add your first one below.
-  </div>
-</div>
+<div class="posts" id="posts-list"></div>
 
-<!-- ADD POST -->
+<!-- ADD POST - ADMIN ONLY -->
 
-<div class="new-post-section">
+<div class="new-post-section" id="admin-section" style="display:none">
   <div class="new-post-title">Add a New Post</div>
   <div class="new-post-sub">Document what you built, what you learned, or what surprised you.</div>
 
@@ -636,7 +637,29 @@ animation: fadeUp 0.5s ease both;
   </div>
 
 <button class="submit-btn" onclick="addPost()">Publish Post →</button>
+<button onclick="lockAdmin()" style="margin-top:8px;width:100%;padding:10px;background:none;border:1px solid var(--border2);border-radius:6px;color:var(--ink4);font-size:13px;cursor:pointer;">🔒 Lock</button>
 
+</div>
+
+<!-- CONTACT / WAITLIST -->
+
+<div class="about" id="contact" style="background:var(--white)">
+  <div class="about-inner">
+    <div>
+      <div class="about-label">Get Updates</div>
+      <div class="about-text" style="margin-bottom:20px">New tools dropping soon. Leave your email and I'll let you know when something new is live — no spam, just builds.</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <input type="email" placeholder="your@email.com" style="flex:1;min-width:180px;padding:12px 14px;border:1px solid var(--border2);border-radius:6px;font-family:'DM Sans',sans-serif;font-size:14px;outline:none;"/>
+        <button onclick="handleWaitlist()" style="background:var(--accent);color:white;border:none;padding:12px 20px;border-radius:6px;font-size:14px;cursor:pointer;white-space:nowrap;">Notify me →</button>
+      </div>
+      <div id="waitlist-thanks" style="display:none;margin-top:12px;font-size:13px;color:var(--accent);font-family:'DM Mono',monospace;">✓ You're on the list!</div>
+    </div>
+    <div>
+      <div class="about-label">Have a question or idea?</div>
+      <div class="about-text" style="margin-bottom:16px">I'm always open to feedback, collaborations, or just hearing what tool you wish existed.</div>
+      <a href="mailto:hello@paolabuilds.com" style="display:inline-block;font-family:'DM Mono',monospace;font-size:12px;color:var(--accent);border:1px solid var(--accent);padding:8px 16px;border-radius:4px;text-decoration:none;">Say hello →</a>
+    </div>
+  </div>
 </div>
 
 <!-- ABOUT -->
@@ -644,17 +667,17 @@ animation: fadeUp 0.5s ease both;
 <div class="about" id="about">
   <div class="about-inner">
     <div>
-      <div class="about-label">About Me</div>
+      <div class="about-label">About Paola</div>
       <div class="about-text">
-        I'm a <strong>policy analyst</strong> with a background in social protection — formerly at OCHA and ILO. I'm currently exploring the intersection of technology, AI, and policy, one build at a time.<br/><br/>
-        I'm also a first-time mom, LSAT student, and proof that you don't need a computer science degree to build things that matter.
+        I'm a <strong>policy analyst</strong> who builds free tools using AI — no CS degree, no team, no funding. Just a laptop, curiosity, and a lot of nap-time windows.<br/><br/>
+        My background is in social protection policy. Now I'm exploring what happens when policy people learn to build.
       </div>
     </div>
     <div>
       <div class="about-label">What is Vibe Coding?</div>
       <div class="about-text">
-        Vibe coding is building software by describing what you want in plain language and letting AI generate the code. You steer by feel and intent — not syntax.<br/><br/>
-        I use it to build <strong>real tools</strong> that solve real problems in my life and work. Everything on this site was built this way.
+        Vibe coding means describing what you want in plain language and letting AI write the code. No syntax, no stack decisions — just ideas and outcomes.<br/><br/>
+        <strong>Everything on this site was built this way.</strong> If you've ever thought "I wish there was a tool that did X" — you can probably build it too.
       </div>
     </div>
   </div>
@@ -663,7 +686,7 @@ animation: fadeUp 0.5s ease both;
 <footer>
   <div>
     <div class="footer-name">Paola Builds</div>
-    <div class="footer-sub">Policy · AI · Code · 2025</div>
+    <div class="footer-sub">Policy · AI · Code · 2026 · <span onclick="unlockAdmin()" style="cursor:pointer;color:var(--border)">✦</span></div>
   </div>
   <div class="footer-links">
     <a href="citizen-brief.html" target="_blank">Citizen Brief</a>
@@ -724,6 +747,24 @@ animation: fadeUp 0.5s ease both;
 </div>
 
 <script>
+function handleWaitlist() {
+  document.getElementById('waitlist-thanks').style.display = 'block';
+}
+
+function unlockAdmin() {
+  const pw = prompt('Enter password:');
+  if (pw === 'paola2026') {
+    document.getElementById('admin-section').style.display = 'block';
+    document.getElementById('admin-section').scrollIntoView({ behavior: 'smooth' });
+  } else if (pw !== null) {
+    alert('Incorrect password');
+  }
+}
+
+function lockAdmin() {
+  document.getElementById('admin-section').style.display = 'none';
+}
+
 // Set today's date as default
 document.getElementById("post-date").value = new Date().toISOString().split("T")[0];
 
