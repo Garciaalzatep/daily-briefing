@@ -632,6 +632,11 @@ animation: fadeUp 0.5s ease both;
   </div>
 
   <div class="form-group">
+    <label class="form-label">Link (optional)</label>
+    <input class="form-input" id="post-link" type="text" placeholder="e.g. post-citizen-brief.html"/>
+  </div>
+
+  <div class="form-group">
     <label class="form-label">Excerpt / Summary</label>
     <textarea class="form-textarea" id="post-excerpt" placeholder="A short description of what this post is about..."></textarea>
   </div>
@@ -670,7 +675,7 @@ animation: fadeUp 0.5s ease both;
       <div class="about-label">About Paola</div>
       <div class="about-text">
         I'm a <strong>policy analyst</strong> who builds free tools using AI — no CS degree, no team, no funding. Just a laptop, curiosity, and a lot of nap-time windows.<br/><br/>
-        My background is in social protection policy. Now I'm exploring what happens when policy people learn to build.
+        My background is in social protection policy. I've worked with OCHA and ILO. Now I'm exploring what happens when policy people learn to build.
       </div>
     </div>
     <div>
@@ -788,16 +793,18 @@ function addPost() {
   const date = document.getElementById("post-date").value;
   const category = document.getElementById("post-category").value;
   const excerpt = document.getElementById("post-excerpt").value.trim();
+  const link = document.getElementById("post-link").value.trim();
 
   if (!title) { showToast("Please add a title"); return; }
   if (!excerpt) { showToast("Please add a summary"); return; }
 
-  posts.unshift({ title, date, category, excerpt, id: Date.now() });
+  posts.unshift({ title, date, category, excerpt, link, id: Date.now() });
   savePosts();
   renderPosts();
 
   document.getElementById("post-title").value = "";
   document.getElementById("post-excerpt").value = "";
+  document.getElementById("post-link").value = "";
   showToast("✓ Post published!");
 
   document.getElementById("writing").scrollIntoView({ behavior: "smooth" });
@@ -828,15 +835,16 @@ function renderPosts() {
   }
 
   list.innerHTML = posts.map(p => `
-    <div class="post-card">
+    <div class="post-card" ${p.link ? `onclick="window.location='${p.link}'"` : ""} style="${p.link ? 'cursor:pointer' : ''}">
       <div class="post-meta">
         <span>${formatDate(p.date)}</span>
         <span>·</span>
         <span>${p.category}</span>
-        <span style="margin-left:auto; cursor:pointer; color:var(--ink4)" onclick="deletePost(${p.id}, event)">✕ remove</span>
+        <span style="margin-left:auto; cursor:pointer; color:var(--ink4)" onclick="event.stopPropagation();deletePost(${p.id}, event)">✕ remove</span>
       </div>
       <div class="post-title">${p.title}</div>
       <div class="post-excerpt">${p.excerpt}</div>
+      ${p.link ? `<div style="margin-top:12px;font-family:'DM Mono',monospace;font-size:11px;color:var(--accent)">Read post →</div>` : ""}
     </div>
   `).join("");
 }
