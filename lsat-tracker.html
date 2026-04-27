@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="apple-mobile-web-app-title" content="LSAT Tracker"/>
+<title>LSAT Study Tracker</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+:root {
+–bg: #0f0e0c;
+–bg2: #161412;
+–bg3: #1a1714;
+–border: #1e1b18;
+–border2: #2a2520;
+–text: #f0ebe0;
+–text2: #c8c0b0;
+–text3: #8a7e6e;
+–text4: #5a5048;
+–text5: #3a3530;
+}
+
+html, body {
+background: var(–bg);
+color: var(–text);
+font-family: ‘Playfair Display’, Georgia, serif;
+min-height: 100vh;
+overscroll-behavior: none;
+}
+
+/* HEADER */
+.header {
+position: sticky;
+top: 0;
+z-index: 100;
+background: var(–bg3);
+border-bottom: 1px solid var(–border2);
+padding: 16px 18px 12px;
+}
+.header-top { display: flex; justify-content: space-between; align-items: flex-start; }
+.header h1 { font-size: 22px; font-weight: 400; color: var(–text); letter-spacing: -0.3px; }
+.header .sub { font-family: ‘IBM Plex Mono’, monospace; font-size: 10px; color: var(–text4); margin-top: 3px; }
+.pct { text-align: right; }
+.pct-num { font-family: ‘IBM Plex Mono’, monospace; font-size: 28px; line-height: 1; }
+.pct-label { font-family: ‘IBM Plex Mono’, monospace; font-size: 9px; color: var(–text4); margin-top: 2px; }
+.progress-bar { background: var(–border2); border-radius: 4px; height: 3px; margin-top: 10px; }
+.progress-fill { height: 3px; border-radius: 4px; transition: width 0.4s ease; }
+
+/* PHASE BANNER */
+.phase-banner {
+background: var(–bg2);
+border-bottom: 1px solid var(–border);
+padding: 14px 18px;
+cursor: pointer;
+user-select: none;
+}
+.phase-banner-top { display: flex; justify-content: space-between; align-items: center; }
+.phase-name { font-size: 16px; color: var(–text); }
+.phase-dates { font-family: ‘IBM Plex Mono’, monospace; font-size: 10px; color: var(–text4); margin-top: 3px; }
+.phase-switch { font-family: ‘IBM Plex Mono’, monospace; font-size: 12px; color: var(–text4); }
+.phase-focus { font-size: 13px; color: var(–text3); margin-top: 10px; line-height: 1.5; font-style: italic; }
+
+/* PHASE MENU */
+.phase-menu { display: none; background: var(–bg3); border-bottom: 1px solid var(–border2); }
+.phase-menu.open { display: block; }
+.phase-option {
+display: flex; align-items: center; gap: 14px;
+padding: 16px 18px;
+border-bottom: 1px solid var(–border);
+cursor: pointer;
+min-height: 60px;
+}
+.phase-option:active { background: var(–bg2); }
+.phase-option .emoji { font-size: 22px; }
+.phase-option .name { font-size: 14px; color: var(–text2); }
+.phase-option .dates { font-family: ‘IBM Plex Mono’, monospace; font-size: 10px; color: var(–text4); margin-top: 2px; }
+.phase-option .check { margin-left: auto; font-size: 16px; }
+
+/* DAY CARDS */
+.cards { padding: 14px 14px 0; }
+.card {
+background: var(–bg2);
+border: 1px solid var(–border);
+border-radius: 10px;
+margin-bottom: 10px;
+overflow: hidden;
+transition: opacity 0.2s;
+}
+.card.done { opacity: 0.45; }
+.card.today { border-color: var(–phase-color, #7C9885); background: #1b1915; }
+.card-row {
+display: flex;
+align-items: center;
+gap: 12px;
+padding: 16px 14px;
+min-height: 68px;
+cursor: pointer;
+}
+.checkbox {
+width: 30px; height: 30px;
+border-radius: 50%;
+border: 2px solid var(–text5);
+background: transparent;
+flex-shrink: 0;
+display: flex; align-items: center; justify-content: center;
+font-size: 15px; color: var(–bg);
+cursor: pointer;
+transition: all 0.2s;
+-webkit-appearance: none;
+}
+.checkbox.checked { background: var(–phase-color, #7C9885); border-color: var(–phase-color, #7C9885); }
+.rest-icon { width: 30px; flex-shrink: 0; text-align: center; font-size: 20px; }
+.card-main { flex: 1; min-width: 0; }
+.card-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
+.day-label {
+font-family: ‘IBM Plex Mono’, monospace;
+font-size: 10px;
+letter-spacing: 1px;
+color: var(–text4);
+}
+.day-label.today-label { font-weight: 500; }
+.time-label { font-family: ‘IBM Plex Mono’, monospace; font-size: 10px; color: var(–text5); }
+.task-text { font-size: 14px; color: var(–text2); line-height: 1.4; }
+.card.done .task-text { color: var(–text5); }
+.expand-arrow { color: var(–text5); font-size: 11px; flex-shrink: 0; margin-left: 6px; }
+
+/* EXPANDED DETAIL */
+.card-detail {
+display: none;
+border-top: 1px solid var(–border);
+padding: 14px 14px 16px 56px;
+background: #111010;
+}
+.card-detail.open { display: block; }
+.detail-label { font-family: ‘IBM Plex Mono’, monospace; font-size: 10px; color: var(–text4); letter-spacing: 1px; margin-bottom: 8px; }
+.detail-text { font-size: 14px; color: var(–text3); line-height: 1.7; }
+
+/* TIP */
+.tip {
+margin: 8px 14px 20px;
+padding: 14px 16px;
+background: var(–bg2);
+border: 1px solid var(–border);
+border-radius: 10px;
+font-size: 13px;
+color: var(–text4);
+line-height: 1.6;
+}
+.tip strong { color: var(–text3); }
+
+/* BOTTOM NAV */
+.bottom-nav {
+position: fixed;
+bottom: 0; left: 0; right: 0;
+background: var(–bg);
+border-top: 1px solid var(–border);
+display: flex;
+z-index: 100;
+padding-bottom: env(safe-area-inset-bottom);
+}
+.nav-btn {
+flex: 1;
+background: none;
+border: none;
+border-top: 2px solid transparent;
+padding: 10px 4px 12px;
+cursor: pointer;
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 3px;
+-webkit-appearance: none;
+}
+.nav-btn:active { background: var(–bg2); }
+.nav-emoji { font-size: 20px; line-height: 1; }
+.nav-label { font-family: ‘IBM Plex Mono’, monospace; font-size: 8px; letter-spacing: 0.3px; color: var(–text5); }
+
+.spacer { height: 80px; }
+</style>
+
+</head>
+<body>
+
+<div class="header">
+  <div class="header-top">
+    <div>
+      <h1>LSAT Study Plan</h1>
+      <div class="sub">30–45 MIN/DAY · BABY-PROOF · ADHD-FRIENDLY</div>
+    </div>
+    <div class="pct">
+      <div class="pct-num" id="pct-num">0%</div>
+      <div class="pct-label">this phase</div>
+    </div>
+  </div>
+  <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+</div>
+
+<div class="phase-banner" id="phase-banner" onclick="toggleMenu()">
+  <div class="phase-banner-top">
+    <div>
+      <div class="phase-name" id="phase-name"></div>
+      <div class="phase-dates" id="phase-dates"></div>
+    </div>
+    <div class="phase-switch">Switch ▾</div>
+  </div>
+  <div class="phase-focus" id="phase-focus"></div>
+</div>
+
+<div class="phase-menu" id="phase-menu"></div>
+<div class="cards" id="cards"></div>
+<div class="tip">💡 <strong>If you miss a day:</strong> Don't try to catch up. Just do today's task. Consistency beats perfection.</div>
+<div class="spacer"></div>
+<div class="bottom-nav" id="bottom-nav"></div>
+
+<script>
+const PHASES = [
+  {
+    id:1, name:"Foundation", weeks:"Weeks 1–3", dates:"Apr 24 – May 14",
+    color:"#7C9885", emoji:"🌱",
+    focus:"Understand all 3 sections. No drilling yet. Just learn the rules.",
+    days:[
+      {day:"Mon",task:"LR — Learn question types: Must Be True, Weaken, Strengthen",time:"35 min",detail:"Read one chapter of your LR guide. Write down the 3 most common question types in your Notion notes. Don't do practice questions yet."},
+      {day:"Tue",task:"LR — Learn Assumption & Flaw question types",time:"35 min",detail:"These are the most common LR questions. Read slowly. Write the definition of each in your own words in Notion."},
+      {day:"Wed",task:"LG — Learn game types: Sequencing",time:"40 min",detail:"Sequencing is the most common game. Watch a free YouTube intro or read your guide. Draw 2 example setups by hand even if you're just copying."},
+      {day:"Thu",task:"LG — Learn grouping games",time:"40 min",detail:"Grouping is the second most common. Same approach — read, then draw 1 example setup. Focus on understanding the pieces, not speed."},
+      {day:"Fri",task:"RC — Learn passage structure",time:"30 min",detail:"RC has 4 passage types. Today: read about how to identify the Main Point and Author's Tone. These appear in almost every question."},
+      {day:"Sat",task:"Review week + update Notion notes",time:"30 min",detail:"Go back to your Notion notebook. Fill in anything missing. Write 1 sentence summary of each section (LR, LG, RC). This is your reference sheet."},
+      {day:"Sun",task:"REST 🛁",time:"—",detail:"You have a baby. Rest is not optional — it's part of the plan."},
+    ]
+  },
+  {
+    id:2, name:"Core Skills", weeks:"Weeks 4–7", dates:"May 15 – Jun 11",
+    color:"#7B8EC8", emoji:"🔧",
+    focus:"Start doing real practice questions. One section per day. Go slow and check every answer.",
+    days:[
+      {day:"Mon",task:"LR — Do 5 Must Be True questions",time:"35 min",detail:"Use a prep book or 7Sage free questions. Do 5 questions untimed. After each one, read the explanation even if you got it right. Write what tripped you up in Notion."},
+      {day:"Tue",task:"LR — Do 5 Weaken/Strengthen questions",time:"35 min",detail:"Same process. Go slow. The goal is understanding WHY the right answer is right, not speed."},
+      {day:"Wed",task:"LG — Do 1 full sequencing game",time:"40 min",detail:"Do it untimed. Set up your diagram first. Work through all questions. Then read the explanation for the whole game. Note what your diagram missed."},
+      {day:"Thu",task:"LR — Do 5 Assumption questions",time:"35 min",detail:"Assumptions are the hardest LR type. Take your time. It's okay to get them wrong — that's the point right now."},
+      {day:"Fri",task:"RC — Read 1 passage + answer questions",time:"35 min",detail:"Read the passage once, slowly. Mark the main point. Then answer all questions. Review every one with explanations after."},
+      {day:"Sat",task:"LG — Do 1 grouping game + review",time:"40 min",detail:"Same process as Wednesday. Focus on diagram setup — most errors happen before you even start answering."},
+      {day:"Sun",task:"REST 🛁",time:"—",detail:"Rest. Your brain is consolidating what you learned this week while you sleep."},
+    ]
+  },
+  {
+    id:3, name:"Timed Practice", weeks:"Weeks 8–11", dates:"Jun 12 – Jul 9",
+    color:"#C07B5A", emoji:"⏱️",
+    focus:"Add time pressure. Start mixing sections. Identify your weak spots.",
+    days:[
+      {day:"Mon",task:"LR — 10 mixed questions, 1.5 min each",time:"40 min",detail:"Set a timer for 15 minutes total for 10 questions. You won't finish — that's okay. After time is up, finish untimed, then review all answers."},
+      {day:"Tue",task:"LG — 1 game timed (8–10 min)",time:"35 min",detail:"Set a timer for 9 minutes. Stop when it goes off. See how far you got. Review the full game after. Track your time in Notion."},
+      {day:"Wed",task:"RC — 1 passage timed (8–9 min)",time:"35 min",detail:"Time yourself on reading + questions. RC timing is hard — don't panic if you run over. Review and identify which question types you missed."},
+      {day:"Thu",task:"LR — Focus on your weakest question type",time:"40 min",detail:"Check your Notion notes. What question type have you missed most? Do 8 of those today, timed at 1.5 min each."},
+      {day:"Fri",task:"LG — 2 games back to back, timed",time:"40 min",detail:"This simulates the real test. 18 min total for both. Go. Review after."},
+      {day:"Sat",task:"Mini-section: 15 LR questions timed",time:"40 min",detail:"This is half a real LR section. 22.5 minutes. Go as fast as you can while still reading carefully. Track your score in Notion."},
+      {day:"Sun",task:"REST 🛁",time:"—",detail:"Rest."},
+    ]
+  },
+  {
+    id:4, name:"Full Test Prep", weeks:"Weeks 12–14", dates:"Jul 10 – Jul 30",
+    color:"#B5506B", emoji:"🎯",
+    focus:"Full practice tests. Simulate real conditions. Review aggressively.",
+    days:[
+      {day:"Mon",task:"Review your Notion weak-spot notes",time:"30 min",detail:"Go through every weakness you logged. Do 3–5 targeted questions on each. This is targeted repair, not new learning."},
+      {day:"Tue",task:"Full LR section timed (35 min)",time:"40 min",detail:"One full LR section. Timer starts, no stopping. Then full review — every wrong answer gets a Notion note on why."},
+      {day:"Wed",task:"Full LG section timed (35 min)",time:"40 min",detail:"All 4 games. Go. Review after. Note which game type cost you the most time."},
+      {day:"Thu",task:"Full RC section timed (35 min)",time:"40 min",detail:"All 4 passages. Full review after. Note which passage type is hardest for you."},
+      {day:"Fri",task:"Targeted drilling — your #1 weak area",time:"35 min",detail:"By now you know what's hardest. Drill it one more time with a focused set of 10 questions."},
+      {day:"Sat",task:"Full practice test (if possible)",time:"3.5 hrs",detail:"If you can get childcare for a morning, take a full timed LSAT. If not, do 2 sections back to back. Score it and log in Notion."},
+      {day:"Sun",task:"REST 🛁",time:"—",detail:"Rest. You're almost there."},
+    ]
+  },
+  {
+    id:5, name:"Final Week", weeks:"Week 15", dates:"Jul 31 – Aug 6",
+    color:"#8B5E9E", emoji:"✨",
+    focus:"Light review only. Protect your sleep. Trust your prep.",
+    days:[
+      {day:"Mon",task:"Review your Notion notes — big picture only",time:"20 min",detail:"Just read through your summaries. Don't do new practice. Remind yourself what you know."},
+      {day:"Tue",task:"5 LR questions, easy ones, no timer",time:"20 min",detail:"Keep your eye in. No pressure. Just warmup."},
+      {day:"Wed",task:"1 easy LG game, no timer",time:"20 min",detail:"Same — just staying warm. Pick a sequencing game, your strongest type."},
+      {day:"Thu",task:"Read your notes. That's it.",time:"15 min",detail:"Seriously. No new practice. Your brain needs to rest and consolidate."},
+      {day:"Fri",task:"Logistics + rest",time:"10 min",detail:"Check your test location, what to bring, start time. Pack your bag. Go to bed early."},
+      {day:"Sat",task:"TEST DAY 🎓",time:"—",detail:"Eat breakfast. Breathe. You've been preparing for months with a baby and a new job. You've already done the hard part."},
+      {day:"Sun",task:"CELEBRATE 🎉",time:"—",detail:"Whatever happens — you did this."},
+    ]
+  }
+];
+
+const dayNames = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+const todayName = dayNames[new Date().getDay()];
+
+let activePhase = 0;
+let completed = {};
+let expandedKey = null;
+let menuOpen = false;
+
+try { completed = JSON.parse(localStorage.getItem("lsat_done") || "{}"); } catch {}
+
+function save() {
+  try { localStorage.setItem("lsat_done", JSON.stringify(completed)); } catch {}
+}
+
+function toggleMenu() {
+  menuOpen = !menuOpen;
+  document.getElementById("phase-menu").className = "phase-menu" + (menuOpen ? " open" : "");
+}
+
+function setPhase(i) {
+  activePhase = i;
+  menuOpen = false;
+  expandedKey = null;
+  render();
+}
+
+function toggleDone(phaseId, idx, e) {
+  e.stopPropagation();
+  const k = phaseId + "-" + idx;
+  completed[k] = !completed[k];
+  save();
+  render();
+}
+
+function toggleExpand(key) {
+  expandedKey = expandedKey === key ? null : key;
+  render();
+}
+
+function render() {
+  const phase = PHASES[activePhase];
+  const color = phase.color;
+
+  // Progress
+  const studyDays = phase.days.filter(d => d.time !== "—");
+  const done = studyDays.filter((d,i) => completed[phase.id+"-"+i]).length;
+  const pct = studyDays.length ? Math.round(done/studyDays.length*100) : 0;
+  document.getElementById("pct-num").textContent = pct + "%";
+  document.getElementById("pct-num").style.color = color;
+  document.getElementById("progress-fill").style.width = pct + "%";
+  document.getElementById("progress-fill").style.background = color;
+
+  // Phase banner
+  document.getElementById("phase-name").textContent = phase.emoji + " Phase " + phase.id + ": " + phase.name;
+  document.getElementById("phase-dates").textContent = phase.dates;
+  document.getElementById("phase-focus").textContent = "🎯 " + phase.focus;
+
+  // Phase menu
+  document.getElementById("phase-menu").className = "phase-menu" + (menuOpen ? " open" : "");
+  document.getElementById("phase-menu").innerHTML = PHASES.map((p,i) => `
+    <div class="phase-option" onclick="setPhase(${i})">
+      <span class="emoji">${p.emoji}</span>
+      <div>
+        <div class="name" style="color:${i===activePhase?p.color:'#c8c0b0'}">${p.name}</div>
+        <div class="dates">${p.dates}</div>
+      </div>
+      ${i===activePhase ? `<div class="check" style="color:${p.color}">✓</div>` : ""}
+    </div>
+  `).join("");
+
+  // Cards
+  document.getElementById("cards").innerHTML = phase.days.map((d,i) => {
+    const k = phase.id+"-"+i;
+    const isDone = !!completed[k];
+    const isToday = d.day === todayName;
+    const isRest = d.time === "—";
+    const isExpanded = expandedKey === k;
+
+    return `
+      <div class="card${isDone?" done":""}${isToday?" today":""}" style="--phase-color:${color}">
+        <div class="card-row" onclick="toggleExpand('${k}')">
+          ${isRest
+            ? `<div class="rest-icon">🛁</div>`
+            : `<button class="checkbox${isDone?" checked":""}" onclick="toggleDone(${phase.id},${i},event)" style="${isDone?`background:${color};border-color:${color}`:`border-color:#3a3530`}">${isDone?"✓":""}</button>`
+          }
+          <div class="card-main">
+            <div class="card-meta">
+              <span class="day-label${isToday?" today-label":""}" style="${isToday?`color:${color}`:""}">
+                ${d.day.toUpperCase()}${isToday?" · TODAY":""}
+              </span>
+              <span class="time-label">${d.time}</span>
+            </div>
+            <div class="task-text">${d.task}</div>
+          </div>
+          <div class="expand-arrow">${isExpanded?"▲":"▼"}</div>
+        </div>
+        ${isExpanded ? `
+          <div class="card-detail open">
+            <div class="detail-label">WHAT TO DO:</div>
+            <div class="detail-text">${d.detail}</div>
+          </div>
+        ` : ""}
+      </div>
+    `;
+  }).join("");
+
+  // Bottom nav
+  document.getElementById("bottom-nav").innerHTML = PHASES.map((p,i) => `
+    <button class="nav-btn" onclick="setPhase(${i})" style="border-top-color:${i===activePhase?p.color:"transparent"}">
+      <span class="nav-emoji">${p.emoji}</span>
+      <span class="nav-label" style="color:${i===activePhase?p.color:"#3a3530"}">${p.name.split(" ")[0].toUpperCase()}</span>
+    </button>
+  `).join("");
+}
+
+render();
+</script>
+
+</body>
+</html>
