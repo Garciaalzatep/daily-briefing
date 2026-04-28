@@ -5,180 +5,213 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
 <meta name="apple-mobile-web-app-title" content="LSAT Tracker"/>
 <title>LSAT Study Tracker</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
 :root {
-–bg: #0f0e0c;
-–bg2: #161412;
-–bg3: #1a1714;
-–border: #1e1b18;
-–border2: #2a2520;
-–text: #f0ebe0;
-–text2: #c8c0b0;
-–text3: #8a7e6e;
-–text4: #5a5048;
-–text5: #3a3530;
+–bg: #faf8f4;
+–white: #ffffff;
+–ink: #1c1917;
+–ink2: #44403c;
+–ink3: #78716c;
+–ink4: #a8a29e;
+–ink5: #d6d3d1;
+–border: #e7e5e4;
+–border2: #d6d3d1;
+
+/* Phase colors - light & readable */
+–c1: #059669; /* Foundation - green */
+–c2: #2563eb; /* Core Skills - blue */
+–c3: #d97706; /* Timed - amber */
+–c4: #dc2626; /* Full Test - red */
+–c5: #7c3aed; /* Final - purple */
 }
 
 html, body {
 background: var(–bg);
-color: var(–text);
-font-family: ‘Playfair Display’, Georgia, serif;
+color: var(–ink);
+font-family: ‘DM Sans’, sans-serif;
+font-weight: 300;
 min-height: 100vh;
 overscroll-behavior: none;
 }
 
 /* HEADER */
 .header {
-position: sticky;
-top: 0;
-z-index: 100;
-background: var(–bg3);
-border-bottom: 1px solid var(–border2);
-padding: 16px 18px 12px;
+position: sticky; top: 0; z-index: 10;
+background: var(–white);
+border-bottom: 1px solid var(–border);
+padding: 14px 18px 12px;
 }
 .header-top { display: flex; justify-content: space-between; align-items: flex-start; }
-.header h1 { font-size: 22px; font-weight: 400; color: var(–text); letter-spacing: -0.3px; }
-.header .sub { font-family: ‘IBM Plex Mono’, monospace; font-size: 10px; color: var(–text4); margin-top: 3px; }
-.pct { text-align: right; }
-.pct-num { font-family: ‘IBM Plex Mono’, monospace; font-size: 28px; line-height: 1; }
-.pct-label { font-family: ‘IBM Plex Mono’, monospace; font-size: 9px; color: var(–text4); margin-top: 2px; }
-.progress-bar { background: var(–border2); border-radius: 4px; height: 3px; margin-top: 10px; }
-.progress-fill { height: 3px; border-radius: 4px; transition: width 0.4s ease; }
+.header-title { font-family: ‘Fraunces’, serif; font-size: 20px; color: var(–ink); letter-spacing: -0.3px; }
+.header-sub { font-family: ‘DM Mono’, monospace; font-size: 10px; color: var(–ink4); margin-top: 3px; }
+.pct-block { text-align: right; }
+.pct-num { font-family: ‘Fraunces’, serif; font-size: 28px; line-height: 1; }
+.pct-label { font-family: ‘DM Mono’, monospace; font-size: 9px; color: var(–ink4); margin-top: 2px; }
+.progress-bar { background: var(–border); border-radius: 4px; height: 3px; margin-top: 10px; }
+.progress-fill { height: 3px; border-radius: 4px; transition: width 0.4s; }
 
 /* PHASE BANNER */
 .phase-banner {
-background: var(–bg2);
+background: var(–white);
 border-bottom: 1px solid var(–border);
-padding: 14px 18px;
+padding: 12px 18px;
 cursor: pointer;
-user-select: none;
 }
 .phase-banner-top { display: flex; justify-content: space-between; align-items: center; }
-.phase-name { font-size: 16px; color: var(–text); }
-.phase-dates { font-family: ‘IBM Plex Mono’, monospace; font-size: 10px; color: var(–text4); margin-top: 3px; }
-.phase-switch { font-family: ‘IBM Plex Mono’, monospace; font-size: 12px; color: var(–text4); }
-.phase-focus { font-size: 13px; color: var(–text3); margin-top: 10px; line-height: 1.5; font-style: italic; }
+.phase-name { font-family: ‘Fraunces’, serif; font-size: 16px; color: var(–ink); }
+.phase-dates { font-family: ‘DM Mono’, monospace; font-size: 10px; color: var(–ink4); margin-top: 3px; }
+.phase-switch { font-family: ‘DM Mono’, monospace; font-size: 12px; color: var(–ink4); }
+.phase-focus {
+font-size: 13px; color: var(–ink3);
+margin-top: 8px; line-height: 1.5;
+font-style: italic;
+padding: 10px 12px;
+background: var(–bg);
+border-radius: 8px;
+border-left: 3px solid var(–ink5);
+}
 
 /* PHASE MENU */
-.phase-menu { display: none; background: var(–bg3); border-bottom: 1px solid var(–border2); }
+.phase-menu { display: none; background: var(–white); border-bottom: 1px solid var(–border); }
 .phase-menu.open { display: block; }
 .phase-option {
 display: flex; align-items: center; gap: 14px;
-padding: 16px 18px;
-border-bottom: 1px solid var(–border);
-cursor: pointer;
+padding: 14px 18px; border-bottom: 1px solid var(–border);
+cursor: pointer; min-height: 58px;
+}
+.phase-option:active { background: var(–bg); }
+.phase-option .p-emoji { font-size: 20px; }
+.phase-option .p-name { font-size: 14px; color: var(–ink2); }
+.phase-option .p-dates { font-family: ‘DM Mono’, monospace; font-size: 10px; color: var(–ink4); margin-top: 2px; }
+.phase-option .p-check { margin-left: auto; font-size: 14px; }
+
+/* WEEK CARDS */
+.weeks { padding: 14px 14px 0; }
+
+.week-card {
+background: var(–white);
+border: 1px solid var(–border);
+border-radius: 12px;
+margin-bottom: 12px;
+overflow: hidden;
+}
+
+.week-header {
+display: flex; align-items: center; gap: 12px;
+padding: 14px 16px; cursor: pointer;
 min-height: 60px;
 }
-.phase-option:active { background: var(–bg2); }
-.phase-option .emoji { font-size: 22px; }
-.phase-option .name { font-size: 14px; color: var(–text2); }
-.phase-option .dates { font-family: ‘IBM Plex Mono’, monospace; font-size: 10px; color: var(–text4); margin-top: 2px; }
-.phase-option .check { margin-left: auto; font-size: 16px; }
 
-/* DAY CARDS */
-.cards { padding: 14px 14px 0; }
-.card {
-background: var(–bg2);
-border: 1px solid var(–border);
-border-radius: 10px;
-margin-bottom: 10px;
-overflow: hidden;
-transition: opacity 0.2s;
-}
-.card.done { opacity: 0.45; }
-.card.today { border-color: var(–phase-color, #7C9885); background: #1b1915; }
-.card-row {
-display: flex;
-align-items: center;
-gap: 12px;
-padding: 16px 14px;
-min-height: 68px;
-cursor: pointer;
-}
-.checkbox {
-width: 30px; height: 30px;
-border-radius: 50%;
-border: 2px solid var(–text5);
-background: transparent;
-flex-shrink: 0;
+.week-checkbox {
+width: 26px; height: 26px; border-radius: 50%;
+border: 2px solid var(–border2);
+background: transparent; flex-shrink: 0;
 display: flex; align-items: center; justify-content: center;
-font-size: 15px; color: var(–bg);
-cursor: pointer;
-transition: all 0.2s;
--webkit-appearance: none;
+font-size: 13px; cursor: pointer;
+transition: all 0.2s; -webkit-appearance: none;
 }
-.checkbox.checked { background: var(–phase-color, #7C9885); border-color: var(–phase-color, #7C9885); }
-.rest-icon { width: 30px; flex-shrink: 0; text-align: center; font-size: 20px; }
-.card-main { flex: 1; min-width: 0; }
-.card-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
-.day-label {
-font-family: ‘IBM Plex Mono’, monospace;
-font-size: 10px;
-letter-spacing: 1px;
-color: var(–text4);
+.week-checkbox.done { color: white; }
+
+.week-info { flex: 1; min-width: 0; }
+.week-label {
+font-family: ‘DM Mono’, monospace; font-size: 10px;
+letter-spacing: 1px; color: var(–ink4); margin-bottom: 4px;
 }
-.day-label.today-label { font-weight: 500; }
-.time-label { font-family: ‘IBM Plex Mono’, monospace; font-size: 10px; color: var(–text5); }
-.task-text { font-size: 14px; color: var(–text2); line-height: 1.4; }
-.card.done .task-text { color: var(–text5); }
-.expand-arrow { color: var(–text5); font-size: 11px; flex-shrink: 0; margin-left: 6px; }
+.week-label.today { font-weight: 500; }
+.week-task { font-size: 14px; color: var(–ink2); line-height: 1.4; }
+.week-time { font-family: ‘DM Mono’, monospace; font-size: 10px; color: var(–ink4); flex-shrink: 0; }
+.expand-arrow { color: var(–ink5); font-size: 11px; flex-shrink: 0; margin-left: 4px; }
 
 /* EXPANDED DETAIL */
-.card-detail {
+.week-detail {
 display: none;
 border-top: 1px solid var(–border);
-padding: 14px 14px 16px 56px;
-background: #111010;
+padding: 16px 16px 18px;
+background: var(–bg);
 }
-.card-detail.open { display: block; }
-.detail-label { font-family: ‘IBM Plex Mono’, monospace; font-size: 10px; color: var(–text4); letter-spacing: 1px; margin-bottom: 8px; }
-.detail-text { font-size: 14px; color: var(–text3); line-height: 1.7; }
+.week-detail.open { display: block; }
+
+.detail-section { margin-bottom: 16px; }
+.detail-section:last-child { margin-bottom: 0; }
+
+.detail-heading {
+font-family: ‘DM Mono’, monospace; font-size: 10px;
+letter-spacing: 1.5px; color: var(–ink4);
+text-transform: uppercase; margin-bottom: 8px;
+}
+
+.detail-text {
+font-size: 14px; color: var(–ink2);
+line-height: 1.7;
+}
+
+.khan-link {
+display: inline-flex; align-items: center; gap: 6px;
+margin-top: 10px; padding: 8px 14px;
+background: var(–white); border: 1px solid var(–border2);
+border-radius: 8px; font-size: 13px; color: var(–ink2);
+text-decoration: none; font-family: ‘DM Mono’, monospace;
+}
+.khan-link:active { background: var(–border); }
+
+.tip-box {
+background: var(–white);
+border: 1px solid var(–border);
+border-radius: 8px;
+padding: 10px 12px;
+font-size: 13px;
+color: var(–ink3);
+line-height: 1.6;
+margin-top: 8px;
+}
+.tip-box strong { color: var(–ink2); }
+
+.steps { display: flex; flex-direction: column; gap: 8px; }
+.step {
+display: flex; gap: 10px; align-items: flex-start;
+}
+.step-num {
+width: 22px; height: 22px; border-radius: 50%;
+background: var(–ink); color: white;
+font-family: ‘DM Mono’, monospace; font-size: 11px;
+display: flex; align-items: center; justify-content: center;
+flex-shrink: 0; margin-top: 1px;
+}
+.step-text { font-size: 13px; color: var(–ink2); line-height: 1.6; flex: 1; }
 
 /* TIP */
-.tip {
-margin: 8px 14px 20px;
-padding: 14px 16px;
-background: var(–bg2);
+.bottom-tip {
+margin: 4px 14px 16px;
+padding: 12px 14px;
+background: var(–white);
 border: 1px solid var(–border);
 border-radius: 10px;
-font-size: 13px;
-color: var(–text4);
-line-height: 1.6;
+font-size: 13px; color: var(–ink4); line-height: 1.6;
 }
-.tip strong { color: var(–text3); }
+.bottom-tip strong { color: var(–ink3); }
 
 /* BOTTOM NAV */
 .bottom-nav {
-position: fixed;
-bottom: 0; left: 0; right: 0;
-background: var(–bg);
-border-top: 1px solid var(–border);
-display: flex;
-z-index: 100;
+position: fixed; bottom: 0; left: 0; right: 0;
+background: var(–white); border-top: 1px solid var(–border);
+display: flex; z-index: 10;
 padding-bottom: env(safe-area-inset-bottom);
 }
 .nav-btn {
-flex: 1;
-background: none;
-border: none;
+flex: 1; background: none; border: none;
 border-top: 2px solid transparent;
-padding: 10px 4px 12px;
-cursor: pointer;
-display: flex;
-flex-direction: column;
-align-items: center;
-gap: 3px;
--webkit-appearance: none;
+padding: 10px 2px 12px; cursor: pointer;
+display: flex; flex-direction: column; align-items: center; gap: 3px;
 }
-.nav-btn:active { background: var(–bg2); }
-.nav-emoji { font-size: 20px; line-height: 1; }
-.nav-label { font-family: ‘IBM Plex Mono’, monospace; font-size: 8px; letter-spacing: 0.3px; color: var(–text5); }
+.nav-btn.active { border-top-color: var(–ink); }
+.nav-emoji { font-size: 18px; line-height: 1; }
+.nav-label { font-family: ‘DM Mono’, monospace; font-size: 8px; color: var(–ink4); letter-spacing: 0.3px; }
+.nav-btn.active .nav-label { color: var(–ink); }
 
 .spacer { height: 80px; }
 </style>
@@ -189,12 +222,12 @@ gap: 3px;
 <div class="header">
   <div class="header-top">
     <div>
-      <h1>LSAT Study Plan</h1>
-      <div class="sub">30–45 MIN/DAY · BABY-PROOF · ADHD-FRIENDLY</div>
+      <div class="header-title">LSAT Study Tracker</div>
+      <div class="header-sub">30–45 min/day · Khan Academy · Aug 2026</div>
     </div>
-    <div class="pct">
+    <div class="pct-block">
       <div class="pct-num" id="pct-num">0%</div>
-      <div class="pct-label">this phase</div>
+      <div class="pct-label">complete</div>
     </div>
   </div>
   <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
@@ -212,98 +245,435 @@ gap: 3px;
 </div>
 
 <div class="phase-menu" id="phase-menu"></div>
-<div class="cards" id="cards"></div>
-<div class="tip">💡 <strong>If you miss a day:</strong> Don't try to catch up. Just do today's task. Consistency beats perfection.</div>
+<div class="weeks" id="weeks-list"></div>
+<div class="bottom-tip">💡 <strong>Missed a day?</strong> Don't catch up — just do today's task. Progress beats perfection every time.</div>
 <div class="spacer"></div>
 <div class="bottom-nav" id="bottom-nav"></div>
 
 <script>
-const PHASES = [
-  {
-    id:1, name:"Foundation", weeks:"Weeks 1–3", dates:"Apr 24 – May 14",
-    color:"#7C9885", emoji:"🌱",
-    focus:"Understand all 3 sections. No drilling yet. Just learn the rules.",
-    days:[
-      {day:"Mon",task:"LR — Learn question types: Must Be True, Weaken, Strengthen",time:"35 min",detail:"Read one chapter of your LR guide. Write down the 3 most common question types in your Notion notes. Don't do practice questions yet."},
-      {day:"Tue",task:"LR — Learn Assumption & Flaw question types",time:"35 min",detail:"These are the most common LR questions. Read slowly. Write the definition of each in your own words in Notion."},
-      {day:"Wed",task:"LG — Learn game types: Sequencing",time:"40 min",detail:"Sequencing is the most common game. Watch a free YouTube intro or read your guide. Draw 2 example setups by hand even if you're just copying."},
-      {day:"Thu",task:"LG — Learn grouping games",time:"40 min",detail:"Grouping is the second most common. Same approach — read, then draw 1 example setup. Focus on understanding the pieces, not speed."},
-      {day:"Fri",task:"RC — Learn passage structure",time:"30 min",detail:"RC has 4 passage types. Today: read about how to identify the Main Point and Author's Tone. These appear in almost every question."},
-      {day:"Sat",task:"Review week + update Notion notes",time:"30 min",detail:"Go back to your Notion notebook. Fill in anything missing. Write 1 sentence summary of each section (LR, LG, RC). This is your reference sheet."},
-      {day:"Sun",task:"REST 🛁",time:"—",detail:"You have a baby. Rest is not optional — it's part of the plan."},
-    ]
-  },
-  {
-    id:2, name:"Core Skills", weeks:"Weeks 4–7", dates:"May 15 – Jun 11",
-    color:"#7B8EC8", emoji:"🔧",
-    focus:"Start doing real practice questions. One section per day. Go slow and check every answer.",
-    days:[
-      {day:"Mon",task:"LR — Do 5 Must Be True questions",time:"35 min",detail:"Use a prep book or 7Sage free questions. Do 5 questions untimed. After each one, read the explanation even if you got it right. Write what tripped you up in Notion."},
-      {day:"Tue",task:"LR — Do 5 Weaken/Strengthen questions",time:"35 min",detail:"Same process. Go slow. The goal is understanding WHY the right answer is right, not speed."},
-      {day:"Wed",task:"LG — Do 1 full sequencing game",time:"40 min",detail:"Do it untimed. Set up your diagram first. Work through all questions. Then read the explanation for the whole game. Note what your diagram missed."},
-      {day:"Thu",task:"LR — Do 5 Assumption questions",time:"35 min",detail:"Assumptions are the hardest LR type. Take your time. It's okay to get them wrong — that's the point right now."},
-      {day:"Fri",task:"RC — Read 1 passage + answer questions",time:"35 min",detail:"Read the passage once, slowly. Mark the main point. Then answer all questions. Review every one with explanations after."},
-      {day:"Sat",task:"LG — Do 1 grouping game + review",time:"40 min",detail:"Same process as Wednesday. Focus on diagram setup — most errors happen before you even start answering."},
-      {day:"Sun",task:"REST 🛁",time:"—",detail:"Rest. Your brain is consolidating what you learned this week while you sleep."},
-    ]
-  },
-  {
-    id:3, name:"Timed Practice", weeks:"Weeks 8–11", dates:"Jun 12 – Jul 9",
-    color:"#C07B5A", emoji:"⏱️",
-    focus:"Add time pressure. Start mixing sections. Identify your weak spots.",
-    days:[
-      {day:"Mon",task:"LR — 10 mixed questions, 1.5 min each",time:"40 min",detail:"Set a timer for 15 minutes total for 10 questions. You won't finish — that's okay. After time is up, finish untimed, then review all answers."},
-      {day:"Tue",task:"LG — 1 game timed (8–10 min)",time:"35 min",detail:"Set a timer for 9 minutes. Stop when it goes off. See how far you got. Review the full game after. Track your time in Notion."},
-      {day:"Wed",task:"RC — 1 passage timed (8–9 min)",time:"35 min",detail:"Time yourself on reading + questions. RC timing is hard — don't panic if you run over. Review and identify which question types you missed."},
-      {day:"Thu",task:"LR — Focus on your weakest question type",time:"40 min",detail:"Check your Notion notes. What question type have you missed most? Do 8 of those today, timed at 1.5 min each."},
-      {day:"Fri",task:"LG — 2 games back to back, timed",time:"40 min",detail:"This simulates the real test. 18 min total for both. Go. Review after."},
-      {day:"Sat",task:"Mini-section: 15 LR questions timed",time:"40 min",detail:"This is half a real LR section. 22.5 minutes. Go as fast as you can while still reading carefully. Track your score in Notion."},
-      {day:"Sun",task:"REST 🛁",time:"—",detail:"Rest."},
-    ]
-  },
-  {
-    id:4, name:"Full Test Prep", weeks:"Weeks 12–14", dates:"Jul 10 – Jul 30",
-    color:"#B5506B", emoji:"🎯",
-    focus:"Full practice tests. Simulate real conditions. Review aggressively.",
-    days:[
-      {day:"Mon",task:"Review your Notion weak-spot notes",time:"30 min",detail:"Go through every weakness you logged. Do 3–5 targeted questions on each. This is targeted repair, not new learning."},
-      {day:"Tue",task:"Full LR section timed (35 min)",time:"40 min",detail:"One full LR section. Timer starts, no stopping. Then full review — every wrong answer gets a Notion note on why."},
-      {day:"Wed",task:"Full LG section timed (35 min)",time:"40 min",detail:"All 4 games. Go. Review after. Note which game type cost you the most time."},
-      {day:"Thu",task:"Full RC section timed (35 min)",time:"40 min",detail:"All 4 passages. Full review after. Note which passage type is hardest for you."},
-      {day:"Fri",task:"Targeted drilling — your #1 weak area",time:"35 min",detail:"By now you know what's hardest. Drill it one more time with a focused set of 10 questions."},
-      {day:"Sat",task:"Full practice test (if possible)",time:"3.5 hrs",detail:"If you can get childcare for a morning, take a full timed LSAT. If not, do 2 sections back to back. Score it and log in Notion."},
-      {day:"Sun",task:"REST 🛁",time:"—",detail:"Rest. You're almost there."},
-    ]
-  },
-  {
-    id:5, name:"Final Week", weeks:"Week 15", dates:"Jul 31 – Aug 6",
-    color:"#8B5E9E", emoji:"✨",
-    focus:"Light review only. Protect your sleep. Trust your prep.",
-    days:[
-      {day:"Mon",task:"Review your Notion notes — big picture only",time:"20 min",detail:"Just read through your summaries. Don't do new practice. Remind yourself what you know."},
-      {day:"Tue",task:"5 LR questions, easy ones, no timer",time:"20 min",detail:"Keep your eye in. No pressure. Just warmup."},
-      {day:"Wed",task:"1 easy LG game, no timer",time:"20 min",detail:"Same — just staying warm. Pick a sequencing game, your strongest type."},
-      {day:"Thu",task:"Read your notes. That's it.",time:"15 min",detail:"Seriously. No new practice. Your brain needs to rest and consolidate."},
-      {day:"Fri",task:"Logistics + rest",time:"10 min",detail:"Check your test location, what to bring, start time. Pack your bag. Go to bed early."},
-      {day:"Sat",task:"TEST DAY 🎓",time:"—",detail:"Eat breakfast. Breathe. You've been preparing for months with a baby and a new job. You've already done the hard part."},
-      {day:"Sun",task:"CELEBRATE 🎉",time:"—",detail:"Whatever happens — you did this."},
-    ]
-  }
-];
-
 const dayNames = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
 const todayName = dayNames[new Date().getDay()];
+
+const PHASES = [
+{
+  id:1, name:"🌱 Foundation", emoji:"🌱", short:"FOUND",
+  weeks:"Weeks 1–3", dates:"Apr 28 – May 18",
+  color:"#059669",
+  focus:"Get familiar with all 3 LSAT sections. No pressure to be fast. Just understand what each question type is asking.",
+  days:[
+    {
+      day:"Mon", task:"Intro to Logical Reasoning (LR)", time:"35 min",
+      what:"Learn what Logical Reasoning is and why it's half the LSAT.",
+      steps:[
+        "Go to Khan Academy LSAT → Logical Reasoning section",
+        "Watch the intro video: 'What is Logical Reasoning?'",
+        "Read about the structure: stimulus, question stem, answer choices",
+        "Write 3 words in your notes: what LR tests (Arguments)",
+      ],
+      khan:"https://www.khanacademy.org/prep/lsat",
+      tip:"Don't do questions yet. Today is about understanding the playing field, not scoring points."
+    },
+    {
+      day:"Tue", task:"LR Question Types — Must Be True & Main Point", time:"35 min",
+      what:"These are the most straightforward LR questions. Learn to identify them.",
+      steps:[
+        "Khan Academy → Logical Reasoning → Must Be True",
+        "Watch the lesson video first, then try 3 practice questions",
+        "For each question: read the stimulus, identify the conclusion, then answer",
+        "Write the definition of Must Be True in your own words",
+      ],
+      khan:"https://www.khanacademy.org/prep/lsat",
+      tip:"The conclusion is what the author is trying to prove. Everything else is support. Finding the conclusion is the most important LSAT skill."
+    },
+    {
+      day:"Wed", task:"Logic Games (LG) — Introduction", time:"40 min",
+      what:"Logic Games feel intimidating. They're not once you see the pattern.",
+      steps:[
+        "Khan Academy → Logic Games → Intro to Logic Games",
+        "Watch the overview video — understand the 3 parts: setup, rules, questions",
+        "Draw a simple sequencing setup on paper: 5 slots, 5 elements (A B C D E)",
+        "Practice placing elements using basic rules like 'A is before B'",
+      ],
+      khan:"https://www.khanacademy.org/prep/lsat",
+      tip:"Always set up your diagram BEFORE reading the questions. Most people rush this and it costs them time."
+    },
+    {
+      day:"Thu", task:"LR Question Types — Strengthen & Weaken", time:"35 min",
+      what:"These are the most common LR question types. Master these first.",
+      steps:[
+        "Khan Academy → Logical Reasoning → Strengthen and Weaken",
+        "Watch the lesson, then try 3–5 questions",
+        "For Strengthen: find the assumption, then pick the answer that supports it",
+        "For Weaken: find the assumption, then pick the answer that attacks it",
+      ],
+      khan:"https://www.khanacademy.org/prep/lsat",
+      tip:"Strengthen and Weaken questions are two sides of the same coin. If you can find the assumption, you can answer both."
+    },
+    {
+      day:"Fri", task:"Reading Comprehension (RC) — Introduction", time:"30 min",
+      what:"RC has 4 passages. Today: learn how to read a passage strategically.",
+      steps:[
+        "Khan Academy → Reading Comprehension → Intro to RC",
+        "Watch the overview video",
+        "Learn the 4 things to look for: Main Point, Author's Tone, Structure, Details",
+        "Read one sample passage slowly and annotate: circle the main point, mark the tone",
+      ],
+      khan:"https://www.khanacademy.org/prep/lsat",
+      tip:"Don't try to memorize the passage. Read for structure and purpose. The questions will send you back to find details."
+    },
+    {
+      day:"Sat", task:"Week 1 Review + Notion Notes", time:"30 min",
+      what:"Consolidate what you learned this week before moving on.",
+      steps:[
+        "Open your Notion LSAT notebook",
+        "Write 1 sentence definition for: LR, LG, RC",
+        "List the question types you learned this week",
+        "Write one thing that confused you — this is your first focus area",
+      ],
+      khan:null,
+      tip:"The goal of review is to find gaps, not to feel good. If something confused you this week, that's exactly what to drill next week."
+    },
+    { day:"Sun", task:"Rest 🛁", time:"—", what:"Rest is part of the plan. Your brain consolidates while you sleep.", steps:[], khan:null, tip:"You have a baby. Rest is not optional." }
+  ]
+},
+{
+  id:2, name:"🔧 Core Skills", emoji:"🔧", short:"CORE",
+  weeks:"Weeks 4–7", dates:"May 19 – Jun 15",
+  color:"#2563eb",
+  focus:"Start doing real practice questions. Go slowly and check every answer. Speed comes later.",
+  days:[
+    {
+      day:"Mon", task:"LR Drill — Must Be True (5 questions)", time:"35 min",
+      what:"Your first real practice session. Do 5 questions, then review every single one.",
+      steps:[
+        "Khan Academy → Logical Reasoning → Must Be True questions",
+        "Do 5 questions untimed — take as long as you need",
+        "After each question: check the answer AND read the explanation",
+        "In Notion: write what tripped you up for any question you missed",
+      ],
+      khan:"https://www.khanacademy.org/prep/lsat",
+      tip:"It's okay to get them wrong. Wrong answers with good explanations are worth more than right answers you guessed."
+    },
+    {
+      day:"Tue", task:"LR Drill — Strengthen & Weaken (5 questions)", time:"35 min",
+      what:"These two question types make up about 30% of the LR section.",
+      steps:[
+        "Khan Academy → Logical Reasoning → Strengthen / Weaken",
+        "Do 5 questions, alternating Strengthen and Weaken",
+        "For each wrong answer: identify WHICH step you got wrong (finding conclusion? assumption? wrong answer choice?)",
+        "Log your pattern in Notion",
+      ],
+      khan:"https://www.khanacademy.org/prep/lsat",
+      tip:"Most people miss these because they pick answers that are about the topic, not the argument. Stay focused on the logic, not the content."
+    },
+    {
+      day:"Wed", task:"LG — 1 Full Sequencing Game", time:"40 min",
+      what:"Your first complete logic game. Do it untimed and methodically.",
+      steps:[
+        "Khan Academy → Logic Games → Sequencing",
+        "Read the setup and rules — draw your diagram before touching questions",
+        "Work through all questions for that game",
+        "Watch the Khan explanation after — compare your diagram to theirs",
+      ],
+      khan:"https://www.khanacademy.org/prep/lsat",
+      tip:"If your diagram doesn't match the explanation, figure out exactly where yours went wrong. That's the lesson."
+    },
+    {
+      day:"Thu", task:"LR Drill — Assumption Questions (5 questions)", time:"35 min",
+      what:"Assumption is the hardest LR type — and the most important. Take your time.",
+      steps:[
+        "Khan Academy → Logical Reasoning → Assumption",
+        "Read the lesson on the Assumption Negation Test before drilling",
+        "Do 5 questions, using the negation test on each answer choice",
+        "The negation test: negate the answer — if the argument collapses, that's the assumption",
+      ],
+      khan:"https://www.khanacademy.org/prep/lsat",
+      tip:"The Assumption Negation Test is a cheat code. Learn it now and use it forever."
+    },
+    {
+      day:"Fri", task:"RC — 1 Full Passage + Questions", time:"35 min",
+      what:"Read one passage and answer all its questions. Then review every answer.",
+      steps:[
+        "Khan Academy → Reading Comprehension → pick any passage",
+        "Read the passage once — annotate: underline the main point, note the tone",
+        "Answer all questions for that passage",
+        "Review: for each wrong answer, find where in the passage the right answer came from",
+      ],
+      khan:"https://www.khanacademy.org/prep/lsat",
+      tip:"Every RC answer comes directly from the passage. If you can't point to where the answer is in the text, don't pick it."
+    },
+    {
+      day:"Sat", task:"LG — 1 Grouping Game + Review", time:"40 min",
+      what:"Grouping games arrange elements into groups instead of a sequence.",
+      steps:[
+        "Khan Academy → Logic Games → Grouping",
+        "Read setup and rules carefully — grouping diagrams look different from sequencing",
+        "Work through all questions, then watch the Khan explanation",
+        "Note: what was different about this game vs. sequencing?",
+      ],
+      khan:"https://www.khanacademy.org/prep/lsat",
+      tip:"In grouping games, figure out which elements are 'floaters' (can go anywhere) and which are locked. That simplifies everything."
+    },
+    { day:"Sun", task:"Rest 🛁", time:"—", what:"Rest.", steps:[], khan:null, tip:"You've been showing up. That matters." }
+  ]
+},
+{
+  id:3, name:"⏱️ Timed Practice", emoji:"⏱️", short:"TIMED",
+  weeks:"Weeks 8–11", dates:"Jun 16 – Jul 13",
+  color:"#d97706",
+  focus:"Add time pressure. Start mixing sections. The goal now is to find your weak spots.",
+  days:[
+    {
+      day:"Mon", task:"LR — 10 Questions Timed (1.5 min each)", time:"40 min",
+      what:"Simulate real test conditions. You have 35 min for 25–26 questions on the actual LSAT.",
+      steps:[
+        "Khan Academy → Logical Reasoning → mixed question set",
+        "Set a timer for 15 minutes — do 10 questions",
+        "Stop when timer goes off (even mid-question)",
+        "Finish untimed, then review ALL answers — timed and untimed",
+      ],
+      khan:"https://www.khanacademy.org/prep/lsat",
+      tip:"Note which questions you ran out of time on. Those question types are your priority for the next drill session."
+    },
+    {
+      day:"Tue", task:"LG — 1 Game Timed (9 minutes)", time:"35 min",
+      what:"Each logic game should take about 8–10 minutes on the real test.",
+      steps:[
+        "Khan Academy → Logic Games → pick any game",
+        "Set a 9-minute timer — go",
+        "Stop when the timer goes off",
+        "Finish untimed, then review — how many questions did you reach in 9 min?",
+      ],
+      khan:"https://www.khanacademy.org/prep/lsat",
+      tip:"If you finished fewer than 4 questions in 9 minutes, your diagram setup is taking too long. Practice drawing diagrams faster."
+    },
+    {
+      day:"Wed", task:"RC — 1 Passage Timed (8–9 minutes)", time:"35 min",
+      what:"Each RC passage + its questions should take about 8–9 minutes.",
+      steps:[
+        "Khan Academy → Reading Comprehension → pick one passage",
+        "Set a 9-minute timer — read and answer all questions",
+        "Stop at the timer, finish untimed",
+        "Review: which question types cost you the most time?",
+      ],
+      khan:"https://www.khanacademy.org/prep/lsat",
+      tip:"If you're running out of time on RC, you're probably reading too slowly. Try reading the first and last sentence of each paragraph first."
+    },
+    {
+      day:"Thu", task:"LR — Drill Your Weakest Question Type", time:"40 min",
+      what:"By now your Notion notes should show a pattern. Target it today.",
+      steps:[
+        "Open Notion — which LR question type have you missed most?",
+        "Khan Academy → that specific question type",
+        "Do 8 questions of ONLY that type, timed at 1.5 min each",
+        "Review every missed answer — write why in Notion",
+      ],
+      khan:"https://www.khanacademy.org/prep/lsat",
+      tip:"Targeted drilling on your weak spots gives you more points per minute than doing easy questions you already know."
+    },
+    {
+      day:"Fri", task:"LG — 2 Games Back to Back, Timed", time:"40 min",
+      what:"The real LG section has 4 games in 35 minutes. Today: 2 games in 18 minutes.",
+      steps:[
+        "Khan Academy → Logic Games → pick 2 different game types",
+        "Set an 18-minute timer — do both games back to back",
+        "Do not stop between games",
+        "Review after — which game took longer? Why?",
+      ],
+      khan:"https://www.khanacademy.org/prep/lsat",
+      tip:"If game 2 went worse than game 1, mental fatigue is a factor. This is why you need to practice back-to-back, not just one at a time."
+    },
+    {
+      day:"Sat", task:"Mini LR Section — 15 Questions Timed", time:"40 min",
+      what:"Half a real LR section. This is the closest thing to test conditions yet.",
+      steps:[
+        "Khan Academy → Logical Reasoning → set a 22-minute timer",
+        "Do 15 questions — mixed types — without stopping",
+        "Score yourself when done",
+        "Log your score in Notion: date, number correct, which types you missed",
+      ],
+      khan:"https://www.khanacademy.org/prep/lsat",
+      tip:"Track your score every time you do a mini-section. Seeing improvement is the most motivating thing there is."
+    },
+    { day:"Sun", task:"Rest 🛁", time:"—", what:"Rest.", steps:[], khan:null, tip:"You're past the halfway point. You're doing this." }
+  ]
+},
+{
+  id:4, name:"🎯 Full Test Prep", emoji:"🎯", short:"FULL",
+  weeks:"Weeks 12–14", dates:"Jul 14 – Aug 3",
+  color:"#dc2626",
+  focus:"Full timed sections. Aggressive review. Fix what's broken before test day.",
+  days:[
+    {
+      day:"Mon", task:"Review Your Notion Weak-Spot Notes", time:"30 min",
+      what:"You've been logging mistakes for weeks. Today you fix them.",
+      steps:[
+        "Open Notion → go through every weakness you logged",
+        "Pick your top 3 recurring mistakes",
+        "Khan Academy → drill 4–5 questions on each of the 3 weak spots",
+        "Update your notes: is each weakness improving or stuck?",
+      ],
+      khan:"https://www.khanacademy.org/prep/lsat",
+      tip:"At this stage, targeted repair is more valuable than new learning. You know the material — you need to stop the specific errors."
+    },
+    {
+      day:"Tue", task:"Full LR Section Timed (35 minutes)", time:"45 min",
+      what:"One complete Logical Reasoning section under real test conditions.",
+      steps:[
+        "Khan Academy → Logical Reasoning → start a full timed section",
+        "Set a 35-minute timer — no stopping, no pausing",
+        "When the timer ends, mark where you were",
+        "Review every wrong answer — log in Notion",
+      ],
+      khan:"https://www.khanacademy.org/prep/lsat",
+      tip:"Notice which questions you skipped and came back to. On the real test, mark difficult questions and return — never leave blanks."
+    },
+    {
+      day:"Wed", task:"Full LG Section Timed (35 minutes)", time:"45 min",
+      what:"All 4 logic games. This is what test day feels like.",
+      steps:[
+        "Khan Academy → Logic Games → full timed section",
+        "Set a 35-minute timer — complete all 4 games",
+        "After: which game took longest? Which game was hardest?",
+        "Log game type, time spent, and number correct for each game",
+      ],
+      khan:"https://www.khanacademy.org/prep/lsat",
+      tip:"If you're consistently running out of time, skip your weakest game type and come back. 3 perfect games beats 4 rushed ones."
+    },
+    {
+      day:"Thu", task:"Full RC Section Timed (35 minutes)", time:"45 min",
+      what:"All 4 passages. Focus on consistency across passage types.",
+      steps:[
+        "Khan Academy → Reading Comprehension → full timed section",
+        "35-minute timer — all 4 passages",
+        "After: which passage type was hardest? (Science, Law, Humanities, Social Science)",
+        "Log your score and note your hardest passage type",
+      ],
+      khan:"https://www.khanacademy.org/prep/lsat",
+      tip:"Most people have one passage type that costs them points. Now is the time to figure out which one that is for you."
+    },
+    {
+      day:"Fri", task:"Targeted Drill — Your #1 Weak Area", time:"35 min",
+      what:"One focused drill on whatever is still costing you the most points.",
+      steps:[
+        "Look at your Notion score logs — where are you losing the most points?",
+        "Khan Academy → go directly to that section",
+        "Do 10 questions of ONLY that type — timed",
+        "Review every answer and log",
+      ],
+      khan:"https://www.khanacademy.org/prep/lsat",
+      tip:"A 3-point improvement in your weakest area is worth more than a 1-point improvement across everything."
+    },
+    {
+      day:"Sat", task:"Full Practice Test (if childcare available)", time:"3.5 hrs",
+      what:"A complete simulated LSAT. If you can't get 3.5 hours, do 2 sections back to back.",
+      steps:[
+        "Khan Academy → Full LSAT Practice Test",
+        "Simulate real conditions: quiet space, timed, no phone",
+        "Score every section when done",
+        "Log total score in Notion — this is your baseline for test week",
+      ],
+      khan:"https://www.khanacademy.org/prep/lsat",
+      tip:"Don't panic at your score. This is your baseline, not your ceiling. The test is still weeks away."
+    },
+    { day:"Sun", task:"Rest 🛁", time:"—", what:"Rest. You're almost there.", steps:[], khan:null, tip:"Almost there. You've earned this rest." }
+  ]
+},
+{
+  id:5, name:"✨ Final Week", emoji:"✨", short:"FINAL",
+  weeks:"Week 15", dates:"Aug 4 – Aug 9",
+  color:"#7c3aed",
+  focus:"Light review only. Protect your sleep. Trust the work you've done.",
+  days:[
+    {
+      day:"Mon", task:"Review Your Notion Notes — Big Picture Only", time:"20 min",
+      what:"Skim your notes. Remind yourself what you know. No new material.",
+      steps:[
+        "Open your Notion LSAT notebook",
+        "Read through your section summaries and key concepts",
+        "Read your weak-spot log — notice how much you've improved",
+        "No Khan Academy today",
+      ],
+      khan:null,
+      tip:"You know this material. Today is about confidence, not learning."
+    },
+    {
+      day:"Tue", task:"5 Easy LR Questions — No Timer", time:"20 min",
+      what:"Stay sharp without stressing yourself. Pick question types you're good at.",
+      steps:[
+        "Khan Academy → Logical Reasoning → pick your strongest question type",
+        "Do 5 questions, no timer, no pressure",
+        "Don't review wrong answers in depth — just stay warm",
+      ],
+      khan:"https://www.khanacademy.org/prep/lsat",
+      tip:"This is a warmup, not a drill. The goal is to feel confident, not to find problems."
+    },
+    {
+      day:"Wed", task:"1 Easy LG Game — No Timer", time:"20 min",
+      what:"One sequencing game to keep your diagram skills warm.",
+      steps:[
+        "Khan Academy → Logic Games → pick a basic sequencing game",
+        "Set up your diagram carefully, work through questions",
+        "No timer — just stay in the groove",
+      ],
+      khan:"https://www.khanacademy.org/prep/lsat",
+      tip:"Pick your strongest game type. Today is about momentum, not challenge."
+    },
+    {
+      day:"Thu", task:"Read Your Notes. That's It.", time:"15 min",
+      what:"Seriously. No new practice. Just review your notes.",
+      steps:[
+        "Read your Notion key concepts page",
+        "Read your personal strategy notes if you have any",
+        "Put the phone down after 15 minutes",
+      ],
+      khan:null,
+      tip:"Your brain needs rest to consolidate. Studying hard today will hurt, not help."
+    },
+    {
+      day:"Fri", task:"Logistics Day", time:"10 min",
+      what:"Prepare everything so test morning is stress-free.",
+      steps:[
+        "Check your test location and start time",
+        "Plan your route — know exactly how to get there",
+        "Pack your bag: ID, snacks, water, pencils",
+        "Set 2 alarms for tomorrow morning",
+        "Go to bed early",
+      ],
+      khan:null,
+      tip:"Decision fatigue is real. Making every small decision today means you wake up tomorrow with one job: perform."
+    },
+    {
+      day:"Sat", task:"TEST DAY 🎓", time:"—",
+      what:"You've been preparing for months — with a baby, a job, and 30 minutes a day. You've already done the hard part.",
+      steps:[
+        "Eat a real breakfast",
+        "Arrive early",
+        "Breathe. You know this material.",
+        "Trust your preparation",
+      ],
+      khan:null,
+      tip:"You showed up every week. That's who you are now. Go take your test."
+    },
+    {
+      day:"Sun", task:"CELEBRATE 🎉", time:"—",
+      what:"Whatever happens — you did something genuinely hard. Celebrate that.",
+      steps:[],
+      khan:null,
+      tip:"Proud of you."
+    }
+  ]
+}
+];
 
 let activePhase = 0;
 let completed = {};
 let expandedKey = null;
 let menuOpen = false;
 
-try { completed = JSON.parse(localStorage.getItem("lsat_done") || "{}"); } catch {}
+try { completed = JSON.parse(localStorage.getItem("lsat_v3") || "{}"); } catch {}
 
-function save() {
-  try { localStorage.setItem("lsat_done", JSON.stringify(completed)); } catch {}
-}
+function save() { try { localStorage.setItem("lsat_v3", JSON.stringify(completed)); } catch {} }
 
 function toggleMenu() {
   menuOpen = !menuOpen;
@@ -311,18 +681,14 @@ function toggleMenu() {
 }
 
 function setPhase(i) {
-  activePhase = i;
-  menuOpen = false;
-  expandedKey = null;
-  render();
+  activePhase = i; menuOpen = false; expandedKey = null; render();
 }
 
 function toggleDone(phaseId, idx, e) {
   e.stopPropagation();
-  const k = phaseId + "-" + idx;
+  const k = phaseId+"-"+idx;
   completed[k] = !completed[k];
-  save();
-  render();
+  save(); render();
 }
 
 function toggleExpand(key) {
@@ -338,72 +704,98 @@ function render() {
   const studyDays = phase.days.filter(d => d.time !== "—");
   const done = studyDays.filter((d,i) => completed[phase.id+"-"+i]).length;
   const pct = studyDays.length ? Math.round(done/studyDays.length*100) : 0;
-  document.getElementById("pct-num").textContent = pct + "%";
+  document.getElementById("pct-num").textContent = pct+"%";
   document.getElementById("pct-num").style.color = color;
-  document.getElementById("progress-fill").style.width = pct + "%";
+  document.getElementById("progress-fill").style.width = pct+"%";
   document.getElementById("progress-fill").style.background = color;
 
   // Phase banner
-  document.getElementById("phase-name").textContent = phase.emoji + " Phase " + phase.id + ": " + phase.name;
-  document.getElementById("phase-dates").textContent = phase.dates;
-  document.getElementById("phase-focus").textContent = "🎯 " + phase.focus;
+  document.getElementById("phase-name").textContent = phase.name;
+  document.getElementById("phase-dates").textContent = phase.weeks+" · "+phase.dates;
+  document.getElementById("phase-focus").textContent = phase.focus;
 
   // Phase menu
-  document.getElementById("phase-menu").className = "phase-menu" + (menuOpen ? " open" : "");
+  document.getElementById("phase-menu").className = "phase-menu"+(menuOpen?" open":"");
   document.getElementById("phase-menu").innerHTML = PHASES.map((p,i) => `
     <div class="phase-option" onclick="setPhase(${i})">
-      <span class="emoji">${p.emoji}</span>
+      <span class="p-emoji">${p.emoji}</span>
       <div>
-        <div class="name" style="color:${i===activePhase?p.color:'#c8c0b0'}">${p.name}</div>
-        <div class="dates">${p.dates}</div>
+        <div class="p-name" style="color:${i===activePhase?p.color:"#44403c"}">${p.name}</div>
+        <div class="p-dates">${p.dates}</div>
       </div>
-      ${i===activePhase ? `<div class="check" style="color:${p.color}">✓</div>` : ""}
-    </div>
-  `).join("");
+      ${i===activePhase?`<div class="p-check" style="color:${p.color}">✓</div>`:""}
+    </div>`).join("");
 
-  // Cards
-  document.getElementById("cards").innerHTML = phase.days.map((d,i) => {
+  // Week cards
+  document.getElementById("weeks-list").innerHTML = phase.days.map((d,i) => {
     const k = phase.id+"-"+i;
     const isDone = !!completed[k];
     const isToday = d.day === todayName;
     const isRest = d.time === "—";
-    const isExpanded = expandedKey === k;
+    const isExp = expandedKey === k;
+
+    const cardStyle = isToday
+      ? `border-color:${color}; box-shadow:0 0 0 1px ${color}22;`
+      : "";
+
+    const checkStyle = isDone
+      ? `background:${color};border-color:${color};`
+      : isToday ? `border-color:${color};` : "";
 
     return `
-      <div class="card${isDone?" done":""}${isToday?" today":""}" style="--phase-color:${color}">
-        <div class="card-row" onclick="toggleExpand('${k}')">
-          ${isRest
-            ? `<div class="rest-icon">🛁</div>`
-            : `<button class="checkbox${isDone?" checked":""}" onclick="toggleDone(${phase.id},${i},event)" style="${isDone?`background:${color};border-color:${color}`:`border-color:#3a3530`}">${isDone?"✓":""}</button>`
-          }
-          <div class="card-main">
-            <div class="card-meta">
-              <span class="day-label${isToday?" today-label":""}" style="${isToday?`color:${color}`:""}">
-                ${d.day.toUpperCase()}${isToday?" · TODAY":""}
-              </span>
-              <span class="time-label">${d.time}</span>
-            </div>
-            <div class="task-text">${d.task}</div>
+    <div class="week-card" style="${cardStyle}">
+      <div class="week-header" onclick="toggleExpand('${k}')">
+        ${!isRest ? `
+          <button class="week-checkbox${isDone?" done":""}" style="${checkStyle}" onclick="toggleDone(${phase.id},${i},event)">
+            ${isDone?"✓":""}
+          </button>` : `<div style="width:26px;flex-shrink:0;text-align:center;font-size:18px">🛁</div>`
+        }
+        <div class="week-info">
+          <div class="week-label${isToday?" today":""}" style="${isToday?`color:${color}`:""}">
+            ${d.day.toUpperCase()}${isToday?" · TODAY":""}
           </div>
-          <div class="expand-arrow">${isExpanded?"▲":"▼"}</div>
+          <div class="week-task" style="${isDone?"color:#a8a29e;text-decoration:line-through":""}">${d.task}</div>
         </div>
-        ${isExpanded ? `
-          <div class="card-detail open">
-            <div class="detail-label">WHAT TO DO:</div>
-            <div class="detail-text">${d.detail}</div>
-          </div>
-        ` : ""}
+        <div class="week-time">${d.time}</div>
+        <div class="expand-arrow">${isExp?"▲":"▼"}</div>
       </div>
-    `;
+
+      ${isExp ? `
+      <div class="week-detail open">
+        <div class="detail-section">
+          <div class="detail-heading">What you're doing</div>
+          <div class="detail-text">${d.what}</div>
+        </div>
+
+        ${d.steps.length ? `
+        <div class="detail-section">
+          <div class="detail-heading">Exactly how to do it</div>
+          <div class="steps">
+            ${d.steps.map((s,n)=>`
+              <div class="step">
+                <div class="step-num">${n+1}</div>
+                <div class="step-text">${s}</div>
+              </div>`).join("")}
+          </div>
+        </div>` : ""}
+
+        ${d.khan ? `
+        <div class="detail-section">
+          <div class="detail-heading">Where to go</div>
+          <a class="khan-link" href="${d.khan}" target="_blank">📚 Open Khan Academy LSAT →</a>
+        </div>` : ""}
+
+        <div class="tip-box">💡 <strong>Study tip:</strong> ${d.tip}</div>
+      </div>` : ""}
+    </div>`;
   }).join("");
 
   // Bottom nav
   document.getElementById("bottom-nav").innerHTML = PHASES.map((p,i) => `
-    <button class="nav-btn" onclick="setPhase(${i})" style="border-top-color:${i===activePhase?p.color:"transparent"}">
+    <button class="nav-btn${i===activePhase?" active":""}" onclick="setPhase(${i})" style="${i===activePhase?`border-top-color:${p.color}`:""}">
       <span class="nav-emoji">${p.emoji}</span>
-      <span class="nav-label" style="color:${i===activePhase?p.color:"#3a3530"}">${p.name.split(" ")[0].toUpperCase()}</span>
-    </button>
-  `).join("");
+      <span class="nav-label" style="${i===activePhase?`color:${p.color}`:""}">${p.short}</span>
+    </button>`).join("");
 }
 
 render();
