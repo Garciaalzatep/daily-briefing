@@ -497,20 +497,21 @@ function runSegment() {
   if (isOpinion) {
     hideOpinionCard();
     showOpinionCard(seg);
-    // For opinion cards: use a short silent utterance to keep audio chain alive, then advance
     const silence = new SpeechSynthesisUtterance(' ');
     silence.volume = 0;
-    silence.rate = 1;
     silence.onend = () => { advTimer = setTimeout(advance, 9000); };
     speechSynthesis.speak(silence);
   } else {
     hideOpinionCard();
     updateScriptBox(seg);
-    const voice = seg.speaker === 'left' ? vLeft : vRight;
+
+    // iOS fix: always use vLeft (most reliable voice on iOS)
+    // Differentiate anchors using rate and pitch only
+    const isLeft = seg.speaker === 'left';
     const utt = new SpeechSynthesisUtterance(seg.text);
-    if (voice) utt.voice = voice;
-    utt.rate  = seg.speaker === 'left' ? 0.88 : 0.84;
-    utt.pitch = seg.speaker === 'left' ? 1.05 : 0.96;
+    utt.voice  = vLeft; // use same voice for both — iOS drops vRight in chains
+    utt.rate   = isLeft ? 0.88 : 0.82;
+    utt.pitch  = isLeft ? 1.1  : 0.85; // Alexandra = higher, Simone = lower/warmer
     utt.volume = 1;
 
     const keepAlive = setInterval(() => {
@@ -523,7 +524,6 @@ function runSegment() {
       clearInterval(charTimer);
       charIdx = seg.text.length;
       document.getElementById('script-text').textContent = seg.text;
-      // Advance immediately from onend — stays in audio chain
       advance();
     };
     utt.onerror = () => { clearInterval(keepAlive); advance(); };
