@@ -250,8 +250,11 @@ function loadVoices() {
   if (!v.length) return;
   const en = v.filter(x => /^en/i.test(x.lang));
   allVoices = [...(en.length ? en : v)].sort((a,b) => scoreVoice(b) - scoreVoice(a));
-  vLeft  = allVoices[0] || null;
-  vRight = allVoices[1] || allVoices[0] || null;
+
+  // iOS: hardcode by name for reliability
+  vLeft  = v.find(x => x.name === 'Samantha') || v.find(x => x.name === 'Karen') || allVoices[0] || null;
+  vRight = v.find(x => x.name === 'Daniel')   || v.find(x => x.name === 'Moira') || allVoices[0] || null;
+
   populateSelects();
 }
 
@@ -505,13 +508,12 @@ function runSegment() {
     hideOpinionCard();
     updateScriptBox(seg);
 
-    // iOS fix: always use vLeft (most reliable voice on iOS)
-    // Differentiate anchors using rate and pitch only
+    // Use hardcoded voices — Samantha for Alexandra, Daniel for Simone
     const isLeft = seg.speaker === 'left';
     const utt = new SpeechSynthesisUtterance(seg.text);
-    utt.voice  = vLeft; // use same voice for both — iOS drops vRight in chains
-    utt.rate   = isLeft ? 0.88 : 0.82;
-    utt.pitch  = isLeft ? 1.1  : 0.85; // Alexandra = higher, Simone = lower/warmer
+    utt.voice  = isLeft ? vLeft : vRight;
+    utt.rate   = isLeft ? 0.88 : 0.84;
+    utt.pitch  = isLeft ? 1.05 : 0.96;
     utt.volume = 1;
 
     const keepAlive = setInterval(() => {
