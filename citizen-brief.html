@@ -221,17 +221,83 @@
 
 <script>
 const SEGMENTS = [
-  { type:"news", speaker:"left", text:"Good evening. I'm Alexandra Chen, and this is The Citizen Brief. Tonight, the war with Iran enters its sixth day with no off-ramp in sight. Both the Senate and the House have now rejected war powers resolutions that would have halted the conflict — the House vote was the closest, two-twelve to two-nineteen. The U.S. Embassy in Kuwait has shut down after Iranian retaliatory strikes, becoming the second American diplomatic mission to fully halt operations since hostilities began.", ticker:"House rejects war powers 212–219 · Kuwait embassy closes" },
-  { type:"news", speaker:"right", text:"I'm Simone Abara. Ayatollah Ali Khamenei, Iran's supreme leader for thirty-five years, was killed in the opening strikes of this war. Today, President Trump declared that Iran's reported choice of Khamenei's son Mojtaba as successor is unacceptable — and that he wants a say in who leads Iran next. Meanwhile Iranian Foreign Minister Araghchi warned that Tehran would make the United States, quote, bitterly regret sinking the Iranian frigate IRIS Dena in the Indian Ocean last week.", ticker:"Trump demands say in Iran's next leader · Iran vows revenge" },
-  { type:"opinion", publication:"The Washington Post", pubBg:"#f8f8f4", lean:"Legal — strikes illegal", leanColor:"#6c3483", headline:"After Iran, International Law No Longer Fits Reality", author:"Julian Ku, Hofstra University Law", date:"March 5, 2026", text:"Yale law professor Oona Hathaway calls the U.S. strikes on Iran 'blatantly illegal' under the U.N. Charter, which prohibits force except in self-defense or with Security Council authorization. But Julian Ku argues the strikes expose a deeper problem: international law has drifted so far from the actual behavior of powerful states that it has lost its authority as a meaningful constraint. The Iran war may force a long-overdue reckoning with whether the post-1945 legal order still reflects reality.", ticker:"OPINION: WaPo — Iran strikes expose collapse of international law" },
-  { type:"news", speaker:"left", text:"On the ground, Iranian strikes have now hit targets in Azerbaijan, Saudi Arabia, and the United Arab Emirates, as Tehran expands its retaliatory campaign across the region. In Lebanon, Israeli forces ordered mass evacuations of Beirut's southern suburbs, including the dense neighborhood of Dahiyeh — a Hezbollah stronghold. Secretary of State Rubio urged all American citizens in the Middle East to leave immediately. The death toll inside Iran alone has now passed twelve hundred.", ticker:"Iran strikes Gulf states · Israel orders Beirut evacuations" },
-  { type:"opinion", publication:"The Wall Street Journal", pubBg:"#fffef8", lean:"Pro-strike, hawkish", leanColor:"#922b21", headline:"Don't End This War Too Soon", author:"WSJ Editorial Board", date:"March 2, 2026", text:"The Wall Street Journal's conservative editorial board celebrated the opening strikes but issued a pointed warning to Trump: the biggest mistake he could make now would be ending the campaign before Iran's military capacity is more thoroughly destroyed. The editors argued that Iran's continued strikes against regional neighbors prove it remains the central threat to the Middle East, and urged the administration not to declare victory prematurely before its stated war aims are achieved.", ticker:"OPINION: WSJ — Don't stop the Iran campaign too soon" },
-  { type:"news", speaker:"right", text:"In other news tonight — the House has narrowly rejected a war powers resolution, voting two-twelve to two-nineteen, largely along party lines. Army reservist Declan Coady, twenty years old, was among the six American service members killed in Iranian retaliatory drone strikes — his family had been planning to celebrate his twenty-first birthday upon his return. Oil prices rose sharply Thursday as markets priced in a prolonged conflict, while stocks fell for the third straight session.", ticker:"Six Americans killed · oil prices surge · stocks fall" },
-  { type:"opinion", publication:"The Washington Post", pubBg:"#f8f8f4", lean:"Risks of assassination warfare", leanColor:"#1a5276", headline:"Killing Khamenei Shows the Risks of War by Assassination", author:"Washington Post Opinion", date:"March 5, 2026", text:"Trump justified the airstrike that killed Supreme Leader Khamenei by saying 'I got him before he got me' — citing an alleged Iranian plot to assassinate Trump himself. This piece argues that leadership decapitation strategies are deeply unpredictable: they can produce chaos and radicalization rather than collapse. With Iran's succession now contested and Trump claiming a right to choose the next supreme leader, the United States may have opened a door it has no plan to close.", ticker:"OPINION: WaPo — Killing Khamenei risks dangerous chaos" },
-  { type:"news", speaker:"left", text:"On the domestic front — Morgan Stanley is cutting roughly twenty-five hundred jobs across all three of its divisions, tied to shifting business and location priorities. President Trump unveiled a voluntary pledge with Google, Microsoft, Meta, Amazon, Oracle, OpenAI, and xAI to protect consumers from electricity cost increases driven by A.I. data centers. And new climate research finds sea levels are rising twelve inches higher than previously estimated, putting tens of millions more people at risk.", ticker:"Morgan Stanley cuts 2,500 · AI electricity pledge · sea levels rising faster" },
-  { type:"opinion", publication:"The Washington Post", pubBg:"#f8f8f4", lean:"Pro-Trump, consequentialist", leanColor:"#922b21", headline:"If Trump Defeats Iran, He Takes His Place Beside FDR and Reagan", author:"Marc Thiessen, Washington Post", date:"March 4, 2026", text:"Columnist Marc Thiessen argues that history judges presidents by the enemies they defeat: Roosevelt ended Nazi fascism, Reagan defeated Soviet communism. If Trump succeeds in dismantling Iran's theocratic regime, Thiessen writes, he will be remembered alongside them as one of the most consequential presidents in American history — a bold claim that critics say ignores the absence of any postwar plan for a nation of ninety million people.", ticker:"OPINION: WaPo — Trump could join FDR, Reagan if Iran falls" },
-  { type:"news", speaker:"right", text:"And finally tonight — Lou Holtz, the legendary Notre Dame football coach who led the Fighting Irish to the nineteen eighty-eight national championship, has died. He won two hundred and forty-nine games across six schools over thirty-three seasons and was inducted into the College Football Hall of Fame. He was eighty-eight years old. That's The Citizen Brief for this Thursday evening. For Alexandra Chen, I'm Simone Abara — good night.", ticker:"Lou Holtz dies at 88 · Notre Dame coaching legend" },
+  {
+    type: "news",
+    speaker: "left",
+    text: "Good evening. I'm Alexandra Chen and this is The Citizen Brief for Thursday, April thirtieth. The Supreme Court delivered a major blow to voting rights today, striking down Louisiana's twenty-twenty-four congressional map six to three in a ruling that fell along partisan lines. The court called the map an unconstitutional racial gerrymander and reinterpreted Section Two of the landmark nineteen sixty-five Voting Rights Act, shifting the standard from discriminatory effects to intentional racial discrimination. Civil rights experts say the ruling paves the way for the largest drop in Black congressional representation in decades.",
+    ticker: "SCOTUS strikes Louisiana map 6–3 · Voting Rights Act gutted · Black representation at risk"
+  },
+  {
+    type: "news",
+    speaker: "right",
+    text: "I'm Simone Abara. The Iran war crossed the sixty-day mark this week with no end in sight, and the price tag is growing. Pentagon Comptroller Jay Hurst told the House Armed Services Committee the conflict has cost twenty-five billion dollars so far. Defense Secretary Pete Hegseth called the operation a major success but offered no timeline for resolution. He clashed openly with Democrats on the committee, calling their criticism 'reckless, feckless, and defeatist.' Meanwhile Iran's currency has gone into freefall, and the Strait of Hormuz remains closed to commercial traffic.",
+    ticker: "Iran war hits $25B · Hegseth clashes with Congress · Hormuz still closed"
+  },
+  {
+    type: "news",
+    speaker: "left",
+    text: "Big Tech reported its first earnings since the Iran war began — and the results are a study in contrasts. Alphabet's profit jumped eighty-one percent as Google's AI investments paid off. Amazon, Microsoft, and Meta all beat forecasts, but Meta's stock fell more than seven percent after it raised its annual spending outlook to between a hundred and twenty-five and a hundred and forty-five billion dollars. Combined, the four companies plan to spend up to seven hundred and twenty-five billion dollars on AI infrastructure in twenty-twenty-six alone — more than the GDP of Switzerland. Meta also blamed the Iran war's internet disruptions for a drop in daily active users.",
+    ticker: "Big Tech beats forecasts · Meta falls 7% · $725B in combined AI spending planned"
+  },
+  {
+    type: "opinion",
+    publication: "The Washington Post",
+    pubBg: "#f8f8f4",
+    lean: "Civil rights rollback",
+    leanColor: "#6c3483",
+    headline: "The Supreme Court Just Finished What Shelby County Started",
+    author: "Washington Post Editorial Board",
+    date: "April 30, 2026",
+    text: "The Post's editorial board argues Wednesday's ruling completes a decades-long project of dismantling the Voting Rights Act that began with the twenty-thirteen Shelby County decision. By requiring proof of intentional discrimination rather than discriminatory effect, the court has set a near-impossible bar for voting rights plaintiffs. The board warns the ruling will reshape the composition of Congress for a generation."
+  },
+  {
+    type: "news",
+    speaker: "right",
+    text: "The Supreme Court also heard oral arguments Wednesday on whether the Trump administration has the power to end Temporary Protected Status for hundreds of thousands of Syrians and Haitians currently living legally in the United States. It was the final day of oral arguments for the court's current term. Separately, the Senate Banking Committee advanced Kevin Warsh's nomination to lead the Federal Reserve by a thirteen to eleven party-line vote, setting up a full Senate confirmation battle over who will control U.S. monetary policy.",
+    ticker: "SCOTUS weighs TPS for Syrians, Haitians · Kevin Warsh Fed nomination advances"
+  },
+  {
+    type: "opinion",
+    publication: "Wall Street Journal",
+    pubBg: "#fffef8",
+    lean: "Pro-spending, AI optimism",
+    leanColor: "#b45309",
+    headline: "The AI Spending Boom Is the Economy's Best Hope",
+    author: "WSJ Editorial Board",
+    date: "April 30, 2026",
+    text: "The Journal's editorial board argues that Big Tech's massive AI capital expenditures are exactly the kind of private-sector investment that can offset economic headwinds from the Iran war and rising energy costs. While critics worry about a spending bubble, the board contends that surging cloud revenue at Alphabet, Amazon, and Microsoft proves demand is real. They urge policymakers not to burden the AI sector with new regulations at this critical juncture."
+  },
+  {
+    type: "news",
+    speaker: "left",
+    text: "ALEXANDRA — COMMENTARY: Today's Supreme Court ruling on Louisiana's map raises a question that goes beyond one state's district lines — what does equal representation actually require? The majority argues that drawing districts based on race, even to correct historic exclusion, is itself a form of discrimination. Critics say this reading ignores the reality that without intentional remediation, the effects of past discrimination continue to shape who gets elected. Both sides are invoking the same principle — equal protection — but reaching opposite conclusions about what equality demands in practice.",
+    ticker: "COMMENTARY: What does equal representation actually require?"
+  },
+  {
+    type: "news",
+    speaker: "right",
+    text: "SIMONE — COMMENTARY: On the other side of this debate: there are serious scholars who argue race-conscious redistricting has its own costs — including the risk of concentrating minority voters into a small number of districts, which can limit their broader influence across a region. The court's majority is not arguing that Black voters don't face obstacles. It is arguing that the remedy cannot be racial in its design. Whether that distinction holds up in practice — in a country where residential segregation remains deeply tied to race — is a question courts, legislatures, and voters will be wrestling with for years.",
+    ticker: "COMMENTARY: Race-conscious remedies and their limits"
+  },
+  {
+    type: "opinion",
+    publication: "The Economist",
+    pubBg: "#f0f4ff",
+    lean: "Geopolitical realism",
+    leanColor: "#1d4ed8",
+    headline: "Sixty Days In, the Iran War's Costs Are Clearer Than Its Goals",
+    author: "The Economist",
+    date: "April 30, 2026",
+    text: "The Economist argues that at twenty-five billion dollars and counting, the Iran war has achieved its opening objectives — degrading Iran's military infrastructure — but lacks a coherent endgame. With the Strait of Hormuz still closed, peace talks stalled, and Iran's currency in freefall, the magazine warns the conflict risks settling into a prolonged economic siege that harms both sides. It calls for the U.S. to articulate what a realistic peace actually looks like."
+  },
+  {
+    type: "news",
+    speaker: "right",
+    text: "And finally tonight — Israeli forces intercepted the Global Sumud Flotilla attempting to bring humanitarian aid to Gaza, detaining crews from twenty-two of fifty-eight vessels near the Greek island of Crete. Organizers say drones jammed their radar before military speedboats boarded the ships. Separately, a new U.N.-backed report found more than one point two million people — nearly a quarter of Lebanon's population — face acute hunger this year due to conflict and displacement. That's The Citizen Brief for Thursday, April thirtieth. For Alexandra Chen, I'm Simone Abara. Good night.",
+    ticker: "Israel intercepts Gaza flotilla · 1.2M Lebanese face hunger · UN report"
+  }
 ];
+
 
 let allVoices = [], vLeft = null, vRight = null;
 
