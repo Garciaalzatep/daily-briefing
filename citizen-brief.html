@@ -493,26 +493,42 @@ function runSegment() {
   document.getElementById('ticker-label').style.background = isOpinion ? '#c8a84b' : '#e63946';
   document.getElementById('ticker-label').textContent = isOpinion ? 'OPINION' : 'TONIGHT';
   setAnchorState(isOpinion ? null : seg.speaker);
+
   if (isOpinion) {
     hideOpinionCard();
     showOpinionCard(seg);
-    advTimer = setTimeout(advance, 10000);
+    // For opinion cards: use a short silent utterance to keep audio chain alive, then advance
+    const silence = new SpeechSynthesisUtterance(' ');
+    silence.volume = 0;
+    silence.rate = 1;
+    silence.onend = () => { advTimer = setTimeout(advance, 9000); };
+    speechSynthesis.speak(silence);
   } else {
     hideOpinionCard();
     updateScriptBox(seg);
     const voice = seg.speaker === 'left' ? vLeft : vRight;
-    speakText(
-      seg.text,
-      voice,
-      seg.speaker === 'left' ? 0.88 : 0.84,
-      seg.speaker === 'left' ? 1.05 : 0.96,
-      () => {
-        clearInterval(charTimer);
-        charIdx = seg.text.length;
-        document.getElementById('script-text').textContent = seg.text;
-        advTimer = setTimeout(advance, 900);
-      }
-    );
+    const utt = new SpeechSynthesisUtterance(seg.text);
+    if (voice) utt.voice = voice;
+    utt.rate  = seg.speaker === 'left' ? 0.88 : 0.84;
+    utt.pitch = seg.speaker === 'left' ? 1.05 : 0.96;
+    utt.volume = 1;
+
+    const keepAlive = setInterval(() => {
+      if (speechSynthesis.speaking) { speechSynthesis.pause(); speechSynthesis.resume(); }
+      else clearInterval(keepAlive);
+    }, 10000);
+
+    utt.onend = () => {
+      clearInterval(keepAlive);
+      clearInterval(charTimer);
+      charIdx = seg.text.length;
+      document.getElementById('script-text').textContent = seg.text;
+      // Advance immediately from onend — stays in audio chain
+      advance();
+    };
+    utt.onerror = () => { clearInterval(keepAlive); advance(); };
+
+    speechSynthesis.speak(utt);
     tickTypewriter(seg);
   }
 }
