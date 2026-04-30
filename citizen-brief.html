@@ -538,11 +538,6 @@ function goTo(i) {
 }
 
 function startBroadcast() {
-  // Warm up speech synthesis with a silent utterance first (iOS requirement)
-  const warmup = new SpeechSynthesisUtterance(' ');
-  warmup.volume = 0;
-  speechSynthesis.speak(warmup);
-
   vLeft  = allVoices[parseInt(document.getElementById('sel-left').value)]  || null;
   vRight = allVoices[parseInt(document.getElementById('sel-right').value)] || null;
   document.getElementById('overlay').style.display = 'none';
@@ -551,8 +546,37 @@ function startBroadcast() {
   buildTicker();
   startBlinking();
 
-  // Small delay to let warmup complete
-  setTimeout(runSegment, 400);
+  // iOS fix: speak first segment IMMEDIATELY and synchronously from the tap handler
+  // No setTimeout — iOS blocks speech that starts after any async delay
+  const seg = SEGMENTS[0];
+  const voice = seg.speaker === 'left' ? vLeft : vRight;
+  const utt = new SpeechSynthesisUtterance(seg.text);
+  if (voice) utt.voice = voice;
+  utt.rate  = seg.speaker === 'left' ? 0.88 : 0.84;
+  utt.pitch = seg.speaker === 'left' ? 1.05 : 0.96;
+  utt.volume = 1;
+
+  const keepAlive = setInterval(() => {
+    if (speechSynthesis.speaking) { speechSynthesis.pause(); speechSynthesis.resume(); }
+    else clearInterval(keepAlive);
+  }, 10000);
+
+  utt.onend = () => {
+    clearInterval(keepAlive);
+    clearInterval(charTimer);
+    charIdx = seg.text.length;
+    document.getElementById('script-text').textContent = seg.text;
+    advTimer = setTimeout(advance, 900);
+  };
+  utt.onerror = () => { clearInterval(keepAlive); setTimeout(advance, 500); };
+
+  speechSynthesis.cancel();
+  speechSynthesis.speak(utt);
+
+  updateScriptBox(seg);
+  buildDots();
+  setAnchorState(seg.speaker);
+  tickTypewriter(seg);
 }
 </script>
 
