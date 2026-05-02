@@ -239,7 +239,7 @@ function updateScriptBox(seg){
   const color=seg.speaker==='left'?'#c8a84b':'#4a90d9',name=seg.speaker==='left'?'ALEXANDRA CHEN':'SIMONE ABARA';
   document.getElementById('speaker-dot').style.background=color;document.getElementById('speaker-dot').style.color=color;
   document.getElementById('speaker-name').style.color=color;document.getElementById('speaker-name').textContent=name;
-  document.getElementById('script-box').style.borderLeftColor=color;document.getElementById('cursor').style.color=color;
+  document.getElementById('script-box').style.borderLeftColor=color;const cur=document.getElementById('cursor'); if(cur) cur.style.color=color;
   document.getElementById('script-text').innerHTML='<span id="cursor" class="cursor" style="color:'+color+'">▌</span>';charIdx=0;
 }
 function tickTypewriter(seg){
