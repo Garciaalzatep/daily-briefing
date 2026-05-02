@@ -174,12 +174,12 @@ const SEGMENTS = [
   { type:"news", speaker:"right", text:"And finally tonight — Israeli forces intercepted the Global Sumud Flotilla attempting to bring humanitarian aid to Gaza, detaining crews from twenty-two of fifty-eight vessels near the Greek island of Crete. A new U.N.-backed report found more than one point two million people — nearly a quarter of Lebanon's population — face acute hunger this year due to conflict and displacement. That's The Citizen Brief for Thursday, April thirtieth. For Alexandra Chen, I'm Simone Abara. Good night.", ticker:"Israel intercepts Gaza flotilla · 1.2M Lebanese face hunger" },
 ];
 
-let idx=0,charIdx=0,playing=false,started=false;
-let charTimer=null,advTimer=null,blinkL=null,blinkR=null;
-let mouthTimerL=null,mouthTimerR=null,currentAudio=null;
+let idx=0, charIdx=0, playing=false, started=false;
+let charTimer=null, advTimer=null, blinkL=null, blinkR=null;
+let mouthTimerL=null, mouthTimerR=null, currentAudio=null;
 
 function setBlink(side,closed){
-  const ry=closed?2:(side==='left'?9:10),ryP=closed?1:(side==='left'?7:8);
+  const ry=closed?2:(side==='left'?9:10), ryP=closed?1:(side==='left'?7:8);
   if(side==='left'){
     document.getElementById('alex-leye-white').setAttribute('ry',ry);
     document.getElementById('alex-leye').setAttribute('ry',ryP);
@@ -236,11 +236,15 @@ function showOpinionCard(seg){
 }
 function hideOpinionCard(){document.getElementById('news-panel').style.display='';const card=document.getElementById('opinion-card');card.style.display='none';card.innerHTML='';}
 function updateScriptBox(seg){
-  const color=seg.speaker==='left'?'#c8a84b':'#4a90d9',name=seg.speaker==='left'?'ALEXANDRA CHEN':'SIMONE ABARA';
-  document.getElementById('speaker-dot').style.background=color;document.getElementById('speaker-dot').style.color=color;
-  document.getElementById('speaker-name').style.color=color;document.getElementById('speaker-name').textContent=name;
-  document.getElementById('script-box').style.borderLeftColor=color;const cur=document.getElementById('cursor'); if(cur) cur.style.color=color;
-  document.getElementById('script-text').innerHTML='<span id="cursor" class="cursor" style="color:'+color+'">▌</span>';charIdx=0;
+  const color=seg.speaker==='left'?'#c8a84b':'#4a90d9';
+  const name=seg.speaker==='left'?'ALEXANDRA CHEN':'SIMONE ABARA';
+  document.getElementById('speaker-dot').style.background=color;
+  document.getElementById('speaker-dot').style.color=color;
+  document.getElementById('speaker-name').style.color=color;
+  document.getElementById('speaker-name').textContent=name;
+  document.getElementById('script-box').style.borderLeftColor=color;
+  document.getElementById('script-text').innerHTML='<span id="cursor" class="cursor" style="color:'+color+'">▌</span>';
+  charIdx=0;
 }
 function tickTypewriter(seg){
   const msPerChar=Math.max(((seg.text.split(' ').length/(0.88*145))*60000)/seg.text.length,14);
@@ -255,12 +259,14 @@ async function speakElevenLabs(text,voiceId,onEnd){
   try{
     const res=await fetch(WORKER_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({text,voiceId})});
     if(!res.ok){console.error("Worker error",res.status);onEnd();return;}
-    const blob=await res.blob(),url=URL.createObjectURL(blob);
+    const blob=await res.blob();
+    const url=URL.createObjectURL(blob);
     if(currentAudio){currentAudio.pause();currentAudio=null;}
-    currentAudio=new Audio(url);
+    currentAudio=new Audio();
+    currentAudio.src=url;
     currentAudio.onended=()=>{URL.revokeObjectURL(url);onEnd();};
-    currentAudio.onerror=()=>{URL.revokeObjectURL(url);onEnd();};
-    await currentAudio.play();
+    currentAudio.onerror=(e)=>{console.error("Audio error",e);URL.revokeObjectURL(url);onEnd();};
+    try{await currentAudio.play();}catch(pe){console.error("Play error",pe);onEnd();}
   }catch(e){console.error("Error",e);onEnd();}
 }
 function stopAll(){if(currentAudio){currentAudio.pause();currentAudio=null;}clearInterval(charTimer);clearTimeout(advTimer);stopMouth('left');stopMouth('right');}
