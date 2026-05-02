@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
@@ -10,78 +9,52 @@
   body{background:#050c1e;font-family:Georgia,'Times New Roman',serif;overflow:hidden;height:100vh;display:flex;flex-direction:column}
   @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
   @keyframes brea{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
-  @keyframes bounce{0%,80%,100%{transform:scale(.5);opacity:.3}40%{transform:scale(1);opacity:1}}
   @keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
   @keyframes fadeSlideUp{from{opacity:0;transform:translateY(16px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
-
-#app{display:flex;flex-direction:column;height:100vh}
-
-.overlay{position:fixed;inset:0;background:rgba(3,8,22,.98);display:flex;align-items:center;justify-content:center;z-index:100;font-family:Georgia,serif}
-.overlay-box{background:#0a1428;border:1px solid rgba(200,168,75,.27);border-top:3px solid #c8a84b;padding:30px 36px;max-width:520px;width:92%;border-radius:4px}
-.overlay-title{color:#c8a84b;font-size:22px;font-weight:bold;margin-bottom:4px}
-.overlay-sub{color:#5a6a88;font-size:11px;font-family:‘Courier New’,monospace;margin-bottom:22px;line-height:1.7;letter-spacing:.5px}
-.voice-label{font-size:11px;font-family:‘Courier New’,monospace;letter-spacing:2px;margin-bottom:7px}
-.voice-row{display:flex;gap:8px;margin-bottom:18px}
-.voice-select{flex:1;background:#060f22;border:1px solid #1e2e48;color:#e8e4d9;padding:8px 10px;font-size:12px;border-radius:4px;font-family:‘Courier New’,monospace;outline:none}
-.preview-btn{background:#1a2840;border:1px solid rgba(200,168,75,.27);color:#c8a84b;padding:8px 14px;font-size:11px;cursor:pointer;border-radius:4px;font-family:‘Courier New’,monospace;white-space:nowrap}
-.preview-btn.blue{border-color:rgba(74,144,217,.27);color:#4a90d9}
-.tip{font-size:11px;color:#2a3850;font-family:‘Courier New’,monospace;margin-bottom:18px;line-height:1.7}
-.start-btn{width:100%;padding:13px;background:#c8a84b;color:#000;font-size:15px;font-weight:bold;border:none;border-radius:4px;cursor:pointer;font-family:Georgia,serif;letter-spacing:.5px}
-.start-btn:hover{background:#d4b455}
-
-#header{padding:10px 24px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #1a2840;flex-shrink:0}
-.live-badge{background:#e63946;color:#fff;padding:3px 10px;font-size:10px;font-family:‘Courier New’,monospace;letter-spacing:2px;font-weight:bold;display:flex;align-items:center;gap:5px;animation:pulse 1.2s infinite}
-.live-dot{width:6px;height:6px;border-radius:50%;background:#fff;display:inline-block}
-.show-title{color:#c8a84b;font-size:21px;font-weight:bold;margin-left:12px}
-.opinion-badge{background:#1a2840;color:#c8a84b;font-size:10px;font-family:‘Courier New’,monospace;letter-spacing:2px;padding:3px 10px;border-radius:3px;border:1px solid rgba(200,168,75,.27);margin-left:10px;display:none}
-.header-right{display:flex;align-items:center;gap:8px}
-.date-label{color:#2a3858;font-size:11px;font-family:‘Courier New’,monospace}
-.ctrl-btn{background:#0e1a30;border:1px solid #1e2e48;color:#5a7aaa;padding:4px 12px;font-size:12px;cursor:pointer;border-radius:4px}
-.ctrl-btn:hover{background:#162440}
-
-#studio{flex:1;display:flex;align-items:flex-end;padding:0 4% 0;gap:4%;min-height:0}
-.anchor-wrap{flex:1;transition:opacity .6s}
-.anchor-wrap svg{width:100%;height:100%}
-
-#center{flex:1;display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:46px;gap:8px}
-.speaker-label{display:flex;align-items:center;gap:7px}
-.speaker-dot{width:7px;height:7px;border-radius:50%;box-shadow:0 0 8px currentColor;transition:background .4s}
-.speaker-name{font-size:10px;font-family:‘Courier New’,monospace;letter-spacing:2px;font-weight:bold}
-.script-box{background:rgba(5,10,25,.82);border-left:3px solid #c8a84b;padding:11px 14px;border-radius:0 6px 6px 0}
-.script-text{font-size:13px;color:#ddd9d0;line-height:1.65;min-height:1.65em}
-.cursor{animation:pulse .5s infinite;display:inline}
-
-#dots{display:flex;gap:5px;justify-content:center}
-.dot{height:7px;border-radius:4px;cursor:pointer;border:none;transition:all .3s;padding:0;background:#1a2840}
-
-#opinion-card{flex:1;display:flex;flex-direction:column;justify-content:center;padding-bottom:50px;display:none}
-
-#desk{height:4px;background:linear-gradient(90deg,transparent,#1e3a6a,rgba(200,168,75,.27),#1e3a6a,transparent);flex-shrink:0}
-#ticker-bar{background:rgba(2,5,15,.95);border-top:1px solid #1a2840;display:flex;align-items:center;height:34px;flex-shrink:0;overflow:hidden}
-.ticker-label{color:#fff;padding:0 14px;height:100%;display:flex;align-items:center;font-size:10px;font-family:‘Courier New’,monospace;letter-spacing:2px;font-weight:bold;flex-shrink:0;transition:background .5s}
-.ticker-divider{width:1px;height:100%;background:#1a2840;flex-shrink:0}
-#ticker-track{display:flex;overflow:hidden;flex:1}
-#ticker-inner{white-space:nowrap;font-size:12px;color:#ccc8c0;font-family:‘Courier New’,monospace;animation:ticker 60s linear infinite}
+  #app{display:flex;flex-direction:column;height:100vh}
+  .overlay{position:fixed;inset:0;background:rgba(3,8,22,.98);display:flex;align-items:center;justify-content:center;z-index:100}
+  .overlay-box{background:#0a1428;border:1px solid rgba(200,168,75,.27);border-top:3px solid #c8a84b;padding:30px 36px;max-width:520px;width:92%;border-radius:4px}
+  .overlay-title{color:#c8a84b;font-size:22px;font-weight:bold;margin-bottom:4px}
+  .overlay-sub{color:#5a6a88;font-size:11px;font-family:'Courier New',monospace;margin-bottom:22px;line-height:1.7;letter-spacing:.5px}
+  .tip{font-size:11px;color:#4a6a88;font-family:'Courier New',monospace;margin-bottom:18px;line-height:1.7}
+  .start-btn{width:100%;padding:13px;background:#c8a84b;color:#000;font-size:15px;font-weight:bold;border:none;border-radius:4px;cursor:pointer;font-family:Georgia,serif;letter-spacing:.5px}
+  .start-btn:hover{background:#d4b455}
+  #header{padding:10px 24px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #1a2840;flex-shrink:0}
+  .live-badge{background:#e63946;color:#fff;padding:3px 10px;font-size:10px;font-family:'Courier New',monospace;letter-spacing:2px;font-weight:bold;display:flex;align-items:center;gap:5px;animation:pulse 1.2s infinite}
+  .live-dot{width:6px;height:6px;border-radius:50%;background:#fff;display:inline-block}
+  .show-title{color:#c8a84b;font-size:21px;font-weight:bold;margin-left:12px}
+  .opinion-badge{background:#1a2840;color:#c8a84b;font-size:10px;font-family:'Courier New',monospace;letter-spacing:2px;padding:3px 10px;border-radius:3px;border:1px solid rgba(200,168,75,.27);margin-left:10px;display:none}
+  .header-right{display:flex;align-items:center;gap:8px}
+  .date-label{color:#2a3858;font-size:11px;font-family:'Courier New',monospace}
+  .ctrl-btn{background:#0e1a30;border:1px solid #1e2e48;color:#5a7aaa;padding:4px 12px;font-size:12px;cursor:pointer;border-radius:4px}
+  #studio{flex:1;display:flex;align-items:flex-end;padding:0 4% 0;gap:4%;min-height:0}
+  .anchor-wrap{flex:1;transition:opacity .6s}
+  .anchor-wrap svg{width:100%;height:100%}
+  #center{flex:1;display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:46px;gap:8px}
+  .speaker-label{display:flex;align-items:center;gap:7px}
+  .speaker-dot{width:7px;height:7px;border-radius:50%;box-shadow:0 0 8px currentColor;transition:background .4s}
+  .speaker-name{font-size:10px;font-family:'Courier New',monospace;letter-spacing:2px;font-weight:bold}
+  .script-box{background:rgba(5,10,25,.82);border-left:3px solid #c8a84b;padding:11px 14px;border-radius:0 6px 6px 0}
+  .script-text{font-size:13px;color:#ddd9d0;line-height:1.65;min-height:1.65em}
+  .cursor{animation:pulse .5s infinite;display:inline}
+  #dots{display:flex;gap:5px;justify-content:center}
+  .dot{height:7px;border-radius:4px;cursor:pointer;border:none;transition:all .3s;padding:0;background:#1a2840}
+  #opinion-card{flex:1;display:flex;flex-direction:column;justify-content:center;padding-bottom:50px;display:none}
+  #desk{height:4px;background:linear-gradient(90deg,transparent,#1e3a6a,rgba(200,168,75,.27),#1e3a6a,transparent);flex-shrink:0}
+  #ticker-bar{background:rgba(2,5,15,.95);border-top:1px solid #1a2840;display:flex;align-items:center;height:34px;flex-shrink:0;overflow:hidden}
+  .ticker-label{color:#fff;padding:0 14px;height:100%;display:flex;align-items:center;font-size:10px;font-family:'Courier New',monospace;letter-spacing:2px;font-weight:bold;flex-shrink:0;transition:background .5s}
+  .ticker-divider{width:1px;height:100%;background:#1a2840;flex-shrink:0}
+  #ticker-track{display:flex;overflow:hidden;flex:1}
+  #ticker-inner{white-space:nowrap;font-size:12px;color:#ccc8c0;font-family:'Courier New',monospace;animation:ticker 60s linear infinite}
 </style>
-
 </head>
 <body>
 
 <div class="overlay" id="overlay">
   <div class="overlay-box">
     <div class="overlay-title">The Citizen Brief</div>
-    <div class="overlay-sub">THU · APR 30 · 2026 &nbsp;·&nbsp; Pick a voice for each anchor · click Preview to hear them</div>
-    <div style="color:#c8a84b" class="voice-label">ALEXANDRA CHEN — LEAD ANCHOR</div>
-    <div class="voice-row">
-      <select class="voice-select" id="sel-left"></select>
-      <button class="preview-btn" onclick="previewVoice('left','Good evening. I am Alexandra Chen and this is The Citizen Brief.')">▶ Preview</button>
-    </div>
-    <div style="color:#4a90d9" class="voice-label">SIMONE ABARA — SENIOR ANCHOR</div>
-    <div class="voice-row">
-      <select class="voice-select" id="sel-right"></select>
-      <button class="preview-btn blue" onclick="previewVoice('right','I am Simone Abara. The war with Iran is now in its sixth day.')">▶ Preview</button>
-    </div>
-    <div class="tip">💡 Best in Chrome: <span style="color:#4a90d9">Google US English</span> &nbsp;·&nbsp; Mac/Safari: <span style="color:#4a90d9">Samantha or Karen</span></div>
+    <div class="overlay-sub">THU · APR 30 · 2026 &nbsp;·&nbsp; AI-powered news broadcast</div>
+    <div class="tip">🎙️ Powered by ElevenLabs · Two real anchor voices</div>
     <button class="start-btn" onclick="startBroadcast()">▶ Start Broadcast</button>
   </div>
 </div>
@@ -119,488 +92,192 @@
         <ellipse cx="160" cy="178" rx="9" ry="12" fill="#d4a87c"/>
         <circle cx="40" cy="185" r="5" fill="#f4f0ec" stroke="#c8a84b" stroke-width="1"/>
         <circle cx="160" cy="185" r="5" fill="#f4f0ec" stroke="#c8a84b" stroke-width="1"/>
-        <line x1="40" y1="178" x2="40" y2="185" stroke="#c8a84b" stroke-width="1.5"/>
-        <line x1="160" y1="178" x2="160" y2="185" stroke="#c8a84b" stroke-width="1.5"/>
         <ellipse cx="80" cy="164" rx="14" ry="9" fill="#fff" id="alex-leye-white"/>
         <ellipse cx="80" cy="165" rx="10" ry="7" fill="#1a0a04" id="alex-leye"/>
         <circle cx="82" cy="162" r="3" fill="#fff" id="alex-leye-shine"/>
         <ellipse cx="120" cy="164" rx="14" ry="9" fill="#fff" id="alex-reye-white"/>
         <ellipse cx="120" cy="165" rx="10" ry="7" fill="#1a0a04" id="alex-reye"/>
         <circle cx="122" cy="162" r="3" fill="#fff" id="alex-reye-shine"/>
-        <line x1="68" y1="158" x2="66" y2="152" stroke="#140904" stroke-width="1.5" stroke-linecap="round"/>
-        <line x1="74" y1="155" x2="73" y2="149" stroke="#140904" stroke-width="1.5" stroke-linecap="round"/>
-        <line x1="80" y1="154" x2="80" y2="148" stroke="#140904" stroke-width="1.5" stroke-linecap="round"/>
-        <line x1="86" y1="155" x2="87" y2="149" stroke="#140904" stroke-width="1.5" stroke-linecap="round"/>
-        <line x1="92" y1="158" x2="95" y2="153" stroke="#140904" stroke-width="1.5" stroke-linecap="round"/>
-        <line x1="108" y1="158" x2="105" y2="153" stroke="#140904" stroke-width="1.5" stroke-linecap="round"/>
-        <line x1="114" y1="155" x2="113" y2="149" stroke="#140904" stroke-width="1.5" stroke-linecap="round"/>
-        <line x1="120" y1="154" x2="120" y2="148" stroke="#140904" stroke-width="1.5" stroke-linecap="round"/>
-        <line x1="126" y1="155" x2="127" y2="149" stroke="#140904" stroke-width="1.5" stroke-linecap="round"/>
-        <line x1="132" y1="158" x2="134" y2="153" stroke="#140904" stroke-width="1.5" stroke-linecap="round"/>
         <path d="M66 150 Q80 144 94 148" stroke="#140904" stroke-width="2.5" fill="none" stroke-linecap="round"/>
         <path d="M106 148 Q120 144 134 150" stroke="#140904" stroke-width="2.5" fill="none" stroke-linecap="round"/>
         <path d="M96 185 Q100 196 104 185" fill="none" stroke="#d4a87c" stroke-width="1.5" stroke-linecap="round"/>
-        <ellipse cx="94" cy="194" rx="4" ry="3" fill="#d4a87c" opacity=".4"/>
-        <ellipse cx="106" cy="194" rx="4" ry="3" fill="#d4a87c" opacity=".4"/>
         <path id="alex-mouth" d="M88 212 Q100 217 112 212" fill="none" stroke="#a04050" stroke-width="2" stroke-linecap="round"/>
-        <ellipse cx="66" cy="186" rx="12" ry="7" fill="#e88878" opacity=".12"/>
-        <ellipse cx="134" cy="186" rx="12" ry="7" fill="#e88878" opacity=".12"/>
       </svg>
     </div>
 
-```
-<div id="center">
-  <div id="news-panel">
-    <div class="speaker-label">
-      <div class="speaker-dot" id="speaker-dot" style="color:#c8a84b;background:#c8a84b"></div>
-      <span class="speaker-name" id="speaker-name" style="color:#c8a84b">ALEXANDRA CHEN</span>
+    <div id="center">
+      <div id="news-panel">
+        <div class="speaker-label">
+          <div class="speaker-dot" id="speaker-dot" style="color:#c8a84b;background:#c8a84b"></div>
+          <span class="speaker-name" id="speaker-name" style="color:#c8a84b">ALEXANDRA CHEN</span>
+        </div>
+        <div class="script-box" id="script-box">
+          <div class="script-text" id="script-text"><span class="cursor" id="cursor" style="color:#c8a84b">▌</span></div>
+        </div>
+        <div id="dots"></div>
+      </div>
+      <div id="opinion-card"></div>
     </div>
-    <div class="script-box" id="script-box">
-      <div class="script-text" id="script-text"><span class="cursor" id="cursor" style="color:#c8a84b">▌</span></div>
+
+    <div class="anchor-wrap" id="wrap-right" style="opacity:.42">
+      <svg viewBox="0 0 200 380" id="svg-simone">
+        <path d="M15 280 Q10 350 10 380 L190 380 Q190 350 185 280 Q148 262 100 260 Q52 262 15 280Z" fill="#4a0e20"/>
+        <path d="M100 268 L78 295 L62 380 L18 380 L18 282 Q52 262 100 260Z" fill="#350818"/>
+        <path d="M100 268 L122 295 L138 380 L182 380 L182 282 Q148 262 100 260Z" fill="#350818"/>
+        <path d="M100 272 L86 292 L100 298 L114 292Z" fill="#f5f0e8"/>
+        <circle cx="100" cy="276" r="7" fill="#c8a84b"/>
+        <circle cx="100" cy="276" r="3.5" fill="#e8c86a"/>
+        <rect x="88" y="230" width="24" height="40" rx="7" fill="#8b5a38"/>
+        <ellipse cx="100" cy="170" rx="58" ry="67" fill="#8b5a38"/>
+        <ellipse cx="100" cy="120" rx="60" ry="24" fill="#160800"/>
+        <path d="M40 128 Q44 90 100 80 Q156 90 160 128 L158 140 Q150 110 100 106 Q50 110 42 140Z" fill="#160800"/>
+        <ellipse cx="100" cy="88" rx="42" ry="35" fill="#160800"/>
+        <ellipse cx="42" cy="176" rx="9" ry="13" fill="#6b4228"/>
+        <ellipse cx="158" cy="176" rx="9" ry="13" fill="#6b4228"/>
+        <circle cx="42" cy="183" r="9" fill="none" stroke="#c8a84b" stroke-width="2.5"/>
+        <circle cx="158" cy="183" r="9" fill="none" stroke="#c8a84b" stroke-width="2.5"/>
+        <ellipse cx="78" cy="162" rx="15" ry="10" fill="#fff" id="sim-leye-white"/>
+        <ellipse cx="78" cy="163" rx="11" ry="8" fill="#120600" id="sim-leye"/>
+        <circle cx="80" cy="160" r="3.5" fill="#fff" id="sim-leye-shine"/>
+        <ellipse cx="122" cy="162" rx="15" ry="10" fill="#fff" id="sim-reye-white"/>
+        <ellipse cx="122" cy="163" rx="11" ry="8" fill="#120600" id="sim-reye"/>
+        <circle cx="124" cy="160" r="3.5" fill="#fff" id="sim-reye-shine"/>
+        <path d="M63 146 Q78 138 93 143" stroke="#160800" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <path d="M107 143 Q122 138 137 146" stroke="#160800" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <path id="sim-mouth" d="M87 210 Q100 216 113 210" fill="none" stroke="#8c3040" stroke-width="2.5" stroke-linecap="round"/>
+      </svg>
     </div>
-    <div id="dots"></div>
-  </div>
-  <div id="opinion-card"></div>
-</div>
-
-<div class="anchor-wrap" id="wrap-right" style="opacity:.42">
-  <svg viewBox="0 0 200 380" id="svg-simone">
-    <path d="M15 280 Q10 350 10 380 L190 380 Q190 350 185 280 Q148 262 100 260 Q52 262 15 280Z" fill="#4a0e20"/>
-    <path d="M100 268 L78 295 L62 380 L18 380 L18 282 Q52 262 100 260Z" fill="#350818"/>
-    <path d="M100 268 L122 295 L138 380 L182 380 L182 282 Q148 262 100 260Z" fill="#350818"/>
-    <path d="M100 272 L86 292 L100 298 L114 292Z" fill="#f5f0e8"/>
-    <circle cx="100" cy="276" r="7" fill="#c8a84b"/>
-    <circle cx="100" cy="276" r="3.5" fill="#e8c86a"/>
-    <rect x="88" y="230" width="24" height="40" rx="7" fill="#8b5a38"/>
-    <ellipse cx="100" cy="170" rx="58" ry="67" fill="#8b5a38"/>
-    <ellipse cx="100" cy="120" rx="60" ry="24" fill="#160800"/>
-    <path d="M40 128 Q44 90 100 80 Q156 90 160 128 L158 140 Q150 110 100 106 Q50 110 42 140Z" fill="#160800"/>
-    <ellipse cx="100" cy="88" rx="42" ry="35" fill="#160800"/>
-    <ellipse cx="100" cy="74" rx="34" ry="26" fill="#220e00"/>
-    <ellipse cx="86" cy="78" rx="8" ry="6" fill="none" stroke="#361400" stroke-width="2.2"/>
-    <ellipse cx="100" cy="70" rx="8" ry="6" fill="none" stroke="#361400" stroke-width="2.2"/>
-    <ellipse cx="114" cy="78" rx="8" ry="6" fill="none" stroke="#361400" stroke-width="2.2"/>
-    <ellipse cx="92" cy="90" rx="8" ry="6" fill="none" stroke="#361400" stroke-width="2.2"/>
-    <ellipse cx="108" cy="90" rx="8" ry="6" fill="none" stroke="#361400" stroke-width="2.2"/>
-    <ellipse cx="42" cy="142" rx="20" ry="24" fill="#160800"/>
-    <ellipse cx="158" cy="142" rx="20" ry="24" fill="#160800"/>
-    <ellipse cx="42" cy="176" rx="9" ry="13" fill="#6b4228"/>
-    <ellipse cx="158" cy="176" rx="9" ry="13" fill="#6b4228"/>
-    <circle cx="42" cy="183" r="9" fill="none" stroke="#c8a84b" stroke-width="2.5"/>
-    <circle cx="158" cy="183" r="9" fill="none" stroke="#c8a84b" stroke-width="2.5"/>
-    <ellipse cx="78" cy="162" rx="15" ry="10" fill="#fff" id="sim-leye-white"/>
-    <ellipse cx="78" cy="163" rx="11" ry="8" fill="#120600" id="sim-leye"/>
-    <circle cx="80" cy="160" r="3.5" fill="#fff" id="sim-leye-shine"/>
-    <ellipse cx="122" cy="162" rx="15" ry="10" fill="#fff" id="sim-reye-white"/>
-    <ellipse cx="122" cy="163" rx="11" ry="8" fill="#120600" id="sim-reye"/>
-    <circle cx="124" cy="160" r="3.5" fill="#fff" id="sim-reye-shine"/>
-    <path d="M63 146 Q78 138 93 143" stroke="#160800" stroke-width="3" fill="none" stroke-linecap="round"/>
-    <path d="M107 143 Q122 138 137 146" stroke="#160800" stroke-width="3" fill="none" stroke-linecap="round"/>
-    <path d="M96 183 Q100 194 104 183" fill="none" stroke="#6b4228" stroke-width="1.8" stroke-linecap="round"/>
-    <ellipse cx="93" cy="192" rx="5.5" ry="4" fill="#6b4228" opacity=".5"/>
-    <ellipse cx="107" cy="192" rx="5.5" ry="4" fill="#6b4228" opacity=".5"/>
-    <path id="sim-mouth" d="M87 210 Q100 216 113 210" fill="none" stroke="#8c3040" stroke-width="2.5" stroke-linecap="round"/>
-    <ellipse cx="62" cy="184" rx="13" ry="8" fill="#b06848" opacity=".13"/>
-    <ellipse cx="138" cy="184" rx="13" ry="8" fill="#b06848" opacity=".13"/>
-  </svg>
-</div>
-```
-
   </div>
 
   <div id="desk"></div>
-
   <div id="ticker-bar">
     <div class="ticker-label" id="ticker-label" style="background:#e63946">TONIGHT</div>
     <div class="ticker-divider"></div>
-    <div id="ticker-track">
-      <div id="ticker-inner"></div>
-    </div>
+    <div id="ticker-track"><div id="ticker-inner"></div></div>
   </div>
 </div>
 
 <script>
+const WORKER_URL = "https://citizenbrief-tts.garciaalzatep.workers.dev";
+const EL_LEFT   = "K7W7zLWeGoxU9YqWoB7A";
+const EL_RIGHT  = "GuflK5NRKwVLKwEeBYTy";
+
 const SEGMENTS = [
-  { type:"news", speaker:"left", text:"Good evening. I'm Alexandra Chen and this is The Citizen Brief for Thursday, April thirtieth. The Supreme Court delivered a major blow to voting rights today, striking down Louisiana's twenty-twenty-four congressional map six to three in a ruling that fell along partisan lines. The court called the map an unconstitutional racial gerrymander and reinterpreted Section Two of the landmark nineteen sixty-five Voting Rights Act, shifting the standard from discriminatory effects to intentional racial discrimination. Civil rights experts say the ruling paves the way for the largest drop in Black congressional representation in decades.", ticker:"SCOTUS strikes Louisiana map 6–3 · Voting Rights Act gutted · Black representation at risk" },
-  { type:"news", speaker:"right", text:"I'm Simone Abara. The Iran war crossed the sixty-day mark this week with no end in sight, and the price tag is growing. Pentagon Comptroller Jay Hurst told the House Armed Services Committee the conflict has cost twenty-five billion dollars so far. Defense Secretary Pete Hegseth called the operation a major success but offered no timeline for resolution. He clashed openly with Democrats on the committee, calling their criticism reckless, feckless, and defeatist. Meanwhile Iran's currency has gone into freefall, and the Strait of Hormuz remains closed to commercial traffic.", ticker:"Iran war hits $25B · Hegseth clashes with Congress · Hormuz still closed" },
-  { type:"news", speaker:"left", text:"Big Tech reported its first earnings since the Iran war began — and the results are a study in contrasts. Alphabet's profit jumped eighty-one percent as Google's AI investments paid off. Amazon, Microsoft, and Meta all beat forecasts, but Meta's stock fell more than seven percent after it raised its annual spending outlook to between a hundred and twenty-five and a hundred and forty-five billion dollars. Combined, the four companies plan to spend up to seven hundred and twenty-five billion dollars on AI infrastructure in twenty-twenty-six alone — more than the GDP of Switzerland.", ticker:"Big Tech beats forecasts · Meta falls 7% · $725B in combined AI spending planned" },
+  { type:"news", speaker:"left", text:"Good evening. I'm Alexandra Chen and this is The Citizen Brief for Thursday, April thirtieth. The Supreme Court delivered a major blow to voting rights today, striking down Louisiana's twenty-twenty-four congressional map six to three in a ruling that fell along partisan lines. The court called the map an unconstitutional racial gerrymander and reinterpreted Section Two of the landmark nineteen sixty-five Voting Rights Act, shifting the standard from discriminatory effects to intentional racial discrimination.", ticker:"SCOTUS strikes Louisiana map 6–3 · Voting Rights Act gutted" },
+  { type:"news", speaker:"right", text:"I'm Simone Abara. The Iran war crossed the sixty-day mark this week with no end in sight, and the price tag is growing. Pentagon Comptroller Jay Hurst told the House Armed Services Committee the conflict has cost twenty-five billion dollars so far. Defense Secretary Pete Hegseth called the operation a major success but offered no timeline for resolution. Meanwhile Iran's currency has gone into freefall, and the Strait of Hormuz remains closed to commercial traffic.", ticker:"Iran war hits $25B · Hegseth clashes with Congress · Hormuz still closed" },
+  { type:"news", speaker:"left", text:"Big Tech reported its first earnings since the Iran war began. Alphabet's profit jumped eighty-one percent as Google's AI investments paid off. Amazon, Microsoft, and Meta all beat forecasts, but Meta's stock fell more than seven percent after it raised its annual spending outlook to between a hundred and twenty-five and a hundred and forty-five billion dollars. Combined, the four companies plan to spend up to seven hundred and twenty-five billion dollars on AI infrastructure in twenty-twenty-six alone.", ticker:"Big Tech beats forecasts · Meta falls 7% · $725B in AI spending planned" },
   { type:"opinion", publication:"The Washington Post", pubBg:"#f8f8f4", lean:"Civil rights rollback", leanColor:"#6c3483", headline:"The Supreme Court Just Finished What Shelby County Started", author:"Washington Post Editorial Board", date:"April 30, 2026", text:"The Post's editorial board argues Wednesday's ruling completes a decades-long project of dismantling the Voting Rights Act that began with the twenty-thirteen Shelby County decision. By requiring proof of intentional discrimination rather than discriminatory effect, the court has set a near-impossible bar for voting rights plaintiffs. The board warns the ruling will reshape the composition of Congress for a generation.", ticker:"OPINION: WaPo — Supreme Court guts Voting Rights Act" },
-  { type:"news", speaker:"right", text:"The Supreme Court also heard oral arguments Wednesday on whether the Trump administration has the power to end Temporary Protected Status for hundreds of thousands of Syrians and Haitians currently living legally in the United States. It was the final day of oral arguments for the court's current term. Separately, the Senate Banking Committee advanced Kevin Warsh's nomination to lead the Federal Reserve by a thirteen to eleven party-line vote, setting up a full Senate confirmation battle over who will control U.S. monetary policy.", ticker:"SCOTUS weighs TPS for Syrians, Haitians · Kevin Warsh Fed nomination advances" },
-  { type:"opinion", publication:"Wall Street Journal", pubBg:"#fffef8", lean:"Pro-spending, AI optimism", leanColor:"#b45309", headline:"The AI Spending Boom Is the Economy's Best Hope", author:"WSJ Editorial Board", date:"April 30, 2026", text:"The Journal's editorial board argues that Big Tech's massive AI capital expenditures are exactly the kind of private-sector investment that can offset economic headwinds from the Iran war and rising energy costs. While critics worry about a spending bubble, the board contends that surging cloud revenue at Alphabet, Amazon, and Microsoft proves demand is real. They urge policymakers not to burden the AI sector with new regulations at this critical juncture.", ticker:"OPINION: WSJ — AI spending boom is economy's best hope" },
-  { type:"news", speaker:"left", text:"ALEXANDRA — COMMENTARY: Today's Supreme Court ruling raises a question that goes beyond one state's district lines — what does equal representation actually require? The majority argues that drawing districts based on race, even to correct historic exclusion, is itself a form of discrimination. Critics say this reading ignores the reality that without intentional remediation, the effects of past discrimination continue to shape who gets elected. Both sides invoke the same principle — equal protection — but reach opposite conclusions about what equality demands in practice.", ticker:"COMMENTARY: What does equal representation actually require?" },
-  { type:"news", speaker:"right", text:"SIMONE — COMMENTARY: On the other side of this debate: serious scholars argue race-conscious redistricting has its own costs — including the risk of concentrating minority voters into a small number of districts, limiting their broader influence across a region. The court's majority is not arguing that Black voters don't face obstacles. It is arguing that the remedy cannot be racial in its design. Whether that distinction holds up in practice — in a country where residential segregation remains deeply tied to race — is a question courts, legislatures, and voters will wrestle with for years.", ticker:"COMMENTARY: Race-conscious remedies and their limits" },
-  { type:"opinion", publication:"The Economist", pubBg:"#f0f4ff", lean:"Geopolitical realism", leanColor:"#1d4ed8", headline:"Sixty Days In, the Iran War's Costs Are Clearer Than Its Goals", author:"The Economist", date:"April 30, 2026", text:"The Economist argues that at twenty-five billion dollars and counting, the Iran war has achieved its opening objectives but lacks a coherent endgame. With the Strait of Hormuz still closed, peace talks stalled, and Iran's currency in freefall, the magazine warns the conflict risks settling into a prolonged economic siege that harms both sides. It calls for the U.S. to articulate what a realistic peace actually looks like.", ticker:"OPINION: The Economist — Iran war costs clearer than its goals" },
-  { type:"news", speaker:"right", text:"And finally tonight — Israeli forces intercepted the Global Sumud Flotilla attempting to bring humanitarian aid to Gaza, detaining crews from twenty-two of fifty-eight vessels near the Greek island of Crete. Organizers say drones jammed their radar before military speedboats boarded the ships. A new U.N.-backed report found more than one point two million people — nearly a quarter of Lebanon's population — face acute hunger this year due to conflict and displacement. That's The Citizen Brief for Thursday, April thirtieth. For Alexandra Chen, I'm Simone Abara. Good night.", ticker:"Israel intercepts Gaza flotilla · 1.2M Lebanese face hunger · UN report" },
+  { type:"news", speaker:"right", text:"The Supreme Court also heard oral arguments Wednesday on whether the Trump administration has the power to end Temporary Protected Status for hundreds of thousands of Syrians and Haitians currently living legally in the United States. Separately, the Senate Banking Committee advanced Kevin Warsh's nomination to lead the Federal Reserve by a thirteen to eleven party-line vote, setting up a full Senate confirmation battle over who will control U.S. monetary policy.", ticker:"SCOTUS weighs TPS · Kevin Warsh Fed nomination advances" },
+  { type:"opinion", publication:"Wall Street Journal", pubBg:"#fffef8", lean:"Pro-spending, AI optimism", leanColor:"#b45309", headline:"The AI Spending Boom Is the Economy's Best Hope", author:"WSJ Editorial Board", date:"April 30, 2026", text:"The Journal's editorial board argues that Big Tech's massive AI capital expenditures are exactly the kind of private-sector investment that can offset economic headwinds from the Iran war and rising energy costs. While critics worry about a spending bubble, the board contends that surging cloud revenue at Alphabet, Amazon, and Microsoft proves demand is real.", ticker:"OPINION: WSJ — AI spending boom is economy's best hope" },
+  { type:"news", speaker:"left", text:"ALEXANDRA — COMMENTARY: Today's Supreme Court ruling raises a question that goes beyond one state's district lines — what does equal representation actually require? The majority argues that drawing districts based on race, even to correct historic exclusion, is itself a form of discrimination. Critics say this reading ignores the reality that without intentional remediation, the effects of past discrimination continue to shape who gets elected.", ticker:"COMMENTARY: What does equal representation require?" },
+  { type:"news", speaker:"right", text:"SIMONE — COMMENTARY: On the other side of this debate: serious scholars argue race-conscious redistricting has its own costs — including the risk of concentrating minority voters into a small number of districts, limiting their broader influence. The court's majority is not arguing that Black voters don't face obstacles. It is arguing that the remedy cannot be racial in its design. Whether that distinction holds up in practice is a question courts and voters will wrestle with for years.", ticker:"COMMENTARY: Race-conscious remedies and their limits" },
+  { type:"news", speaker:"right", text:"And finally tonight — Israeli forces intercepted the Global Sumud Flotilla attempting to bring humanitarian aid to Gaza, detaining crews from twenty-two of fifty-eight vessels near the Greek island of Crete. A new U.N.-backed report found more than one point two million people — nearly a quarter of Lebanon's population — face acute hunger this year due to conflict and displacement. That's The Citizen Brief for Thursday, April thirtieth. For Alexandra Chen, I'm Simone Abara. Good night.", ticker:"Israel intercepts Gaza flotilla · 1.2M Lebanese face hunger" },
 ];
 
-let allVoices = [], vLeft = null, vRight = null;
+let idx=0,charIdx=0,playing=false,started=false;
+let charTimer=null,advTimer=null,blinkL=null,blinkR=null;
+let mouthTimerL=null,mouthTimerR=null,currentAudio=null;
 
-function scoreVoice(v) {
-  const n = v.name.toLowerCase(); let s = 0;
-  if (/neural|natural|enhanced|premium|wavenet|studio/.test(n)) s += 40;
-  if (/google/.test(n)) s += 25;
-  if (/en.us/i.test(v.lang)) s += 20; else if (/^en/i.test(v.lang)) s += 10;
-  if (/samantha|victoria|karen|moira|fiona|zira|aria|jenny|sonia|libby|natasha|ava|claire|nova|susan/.test(n)) s += 15;
-  if (/bells|boing|bubbles|albert|cellos|junior|kathy|trinoids|zarvox|jester|organ/.test(n)) s -= 50;
-  return s;
-}
-
-function loadVoices() {
-  const v = speechSynthesis.getVoices();
-  if (!v.length) return;
-  const en = v.filter(x => /^en/i.test(x.lang));
-  allVoices = [...(en.length ? en : v)].sort((a,b) => scoreVoice(b) - scoreVoice(a));
-
-  // iOS: hardcode by name for reliability
-  vLeft  = v.find(x => x.name === 'Samantha') || v.find(x => x.name === 'Karen') || allVoices[0] || null;
-  vRight = v.find(x => x.name === 'Daniel')   || v.find(x => x.name === 'Moira') || allVoices[0] || null;
-
-  populateSelects();
-}
-
-function populateSelects() {
-  ['sel-left','sel-right'].forEach((id, i) => {
-    const sel = document.getElementById(id);
-    sel.innerHTML = '';
-    allVoices.forEach((v, idx) => {
-      const o = document.createElement('option');
-      o.value = idx; o.textContent = `${v.name} (${v.lang})`;
-      sel.appendChild(o);
-    });
-    sel.value = i === 0 ? 0 : Math.min(1, allVoices.length - 1);
-  });
-}
-
-function previewVoice(side, text) {
-  speechSynthesis.cancel();
-  const idx = parseInt(document.getElementById(side === 'left' ? 'sel-left' : 'sel-right').value);
-  const v = allVoices[idx]; if (!v) return;
-  const u = new SpeechSynthesisUtterance(text);
-  u.voice = v; u.rate = 0.88; u.volume = 1;
-  speechSynthesis.speak(u);
-}
-
-speechSynthesis.onvoiceschanged = loadVoices;
-loadVoices();
-
-let idx = 0, charIdx = 0, playing = false, started = false;
-let charTimer = null, advTimer = null;
-let blinkL = null, blinkR = null;
-let mouthL = false, mouthR = false, mouthTimerL = null, mouthTimerR = null;
-
-function setBlink(side, closed) {
-  const ry = closed ? 2 : (side==='left' ? 9 : 10);
-  const ryP = closed ? 1 : (side==='left' ? 7 : 8);
-  if (side === 'left') {
-    document.getElementById('alex-leye-white').setAttribute('ry', ry);
-    document.getElementById('alex-leye').setAttribute('ry', ryP);
-    document.getElementById('alex-reye-white').setAttribute('ry', ry);
-    document.getElementById('alex-reye').setAttribute('ry', ryP);
-    ['alex-leye-shine','alex-reye-shine'].forEach(id => { document.getElementById(id).style.display = closed ? 'none' : ''; });
+function setBlink(side,closed){
+  const ry=closed?2:(side==='left'?9:10),ryP=closed?1:(side==='left'?7:8);
+  if(side==='left'){
+    document.getElementById('alex-leye-white').setAttribute('ry',ry);
+    document.getElementById('alex-leye').setAttribute('ry',ryP);
+    document.getElementById('alex-reye-white').setAttribute('ry',ry);
+    document.getElementById('alex-reye').setAttribute('ry',ryP);
+    ['alex-leye-shine','alex-reye-shine'].forEach(id=>{document.getElementById(id).style.display=closed?'none':'';});
   } else {
-    document.getElementById('sim-leye-white').setAttribute('ry', ry);
-    document.getElementById('sim-leye').setAttribute('ry', ryP);
-    document.getElementById('sim-reye-white').setAttribute('ry', ry);
-    document.getElementById('sim-reye').setAttribute('ry', ryP);
-    ['sim-leye-shine','sim-reye-shine'].forEach(id => { document.getElementById(id).style.display = closed ? 'none' : ''; });
+    document.getElementById('sim-leye-white').setAttribute('ry',ry);
+    document.getElementById('sim-leye').setAttribute('ry',ryP);
+    document.getElementById('sim-reye-white').setAttribute('ry',ry);
+    document.getElementById('sim-reye').setAttribute('ry',ryP);
+    ['sim-leye-shine','sim-reye-shine'].forEach(id=>{document.getElementById(id).style.display=closed?'none':'';});
   }
 }
-
-function startBlinking() {
-  const blink = (side) => { setBlink(side, true); setTimeout(() => setBlink(side, false), 120); };
-  blinkL = setInterval(() => blink('left'),  2600 + Math.random()*1800);
-  blinkR = setInterval(() => blink('right'), 2800 + Math.random()*1800);
+function startBlinking(){
+  const blink=side=>{setBlink(side,true);setTimeout(()=>setBlink(side,false),120);};
+  blinkL=setInterval(()=>blink('left'),2600+Math.random()*1800);
+  blinkR=setInterval(()=>blink('right'),2800+Math.random()*1800);
 }
-
-function setMouth(side, open) {
-  if (side === 'left') {
-    document.getElementById('alex-mouth').setAttribute('d', open ? 'M87 212 Q100 224 113 212 Q100 218 87 212' : 'M88 212 Q100 217 112 212');
-  } else {
-    document.getElementById('sim-mouth').setAttribute('d', open ? 'M86 210 Q100 224 114 210 Q100 217 86 210' : 'M87 210 Q100 216 113 210');
-  }
+function setMouth(side,open){
+  if(side==='left') document.getElementById('alex-mouth').setAttribute('d',open?'M87 212 Q100 224 113 212 Q100 218 87 212':'M88 212 Q100 217 112 212');
+  else document.getElementById('sim-mouth').setAttribute('d',open?'M86 210 Q100 224 114 210 Q100 217 86 210':'M87 210 Q100 216 113 210');
 }
-
-function startMouth(side) {
+function startMouth(side){
   stopMouth(side);
-  const timer = setInterval(() => {
-    const o = Math.random() > 0.4;
-    setMouth(side, o);
-    if (side==='left') mouthL = o; else mouthR = o;
-  }, 110 + Math.random()*90);
-  if (side==='left') mouthTimerL = timer; else mouthTimerR = timer;
+  const t=setInterval(()=>setMouth(side,Math.random()>0.4),110+Math.random()*90);
+  if(side==='left') mouthTimerL=t; else mouthTimerR=t;
 }
-
-function stopMouth(side) {
-  if (side==='left') { clearInterval(mouthTimerL); setMouth('left',false); }
-  else { clearInterval(mouthTimerR); setMouth('right',false); }
+function stopMouth(side){
+  if(side==='left'){clearInterval(mouthTimerL);setMouth('left',false);}
+  else{clearInterval(mouthTimerR);setMouth('right',false);}
 }
-
-function setAnchorState(talkingSide) {
-  const isOpinion = SEGMENTS[idx].type === 'opinion';
-  const wL = document.getElementById('wrap-left');
-  const wR = document.getElementById('wrap-right');
-  const sL = document.getElementById('svg-alex');
-  const sR = document.getElementById('svg-simone');
-  if (isOpinion) {
-    wL.style.opacity = '0.25'; wR.style.opacity = '0.25';
-    wL.style.animation = wR.style.animation = 'none';
-    sL.style.filter = sR.style.filter = 'none';
-    stopMouth('left'); stopMouth('right');
-  } else if (talkingSide === 'left') {
-    wL.style.opacity = '1'; wR.style.opacity = '0.42';
-    wL.style.animation = 'brea 3.5s ease-in-out infinite';
-    wR.style.animation = 'none';
-    sL.style.filter = 'drop-shadow(0 0 22px rgba(200,168,75,0.55))';
-    sR.style.filter = 'none';
-    startMouth('left'); stopMouth('right');
-  } else if (talkingSide === 'right') {
-    wR.style.opacity = '1'; wL.style.opacity = '0.42';
-    wR.style.animation = 'brea 3.5s ease-in-out infinite';
-    wL.style.animation = 'none';
-    sR.style.filter = 'drop-shadow(0 0 22px rgba(74,144,217,0.55))';
-    sL.style.filter = 'none';
-    startMouth('right'); stopMouth('left');
-  } else {
-    wL.style.opacity = wR.style.opacity = '0.42';
-    wL.style.animation = wR.style.animation = 'none';
-    sL.style.filter = sR.style.filter = 'none';
-    stopMouth('left'); stopMouth('right');
-  }
+function setAnchorState(talkingSide){
+  const isOp=SEGMENTS[idx].type==='opinion';
+  const wL=document.getElementById('wrap-left'),wR=document.getElementById('wrap-right');
+  const sL=document.getElementById('svg-alex'),sR=document.getElementById('svg-simone');
+  if(isOp){wL.style.opacity=wR.style.opacity='0.25';wL.style.animation=wR.style.animation='none';sL.style.filter=sR.style.filter='none';stopMouth('left');stopMouth('right');}
+  else if(talkingSide==='left'){wL.style.opacity='1';wR.style.opacity='0.42';wL.style.animation='brea 3.5s ease-in-out infinite';wR.style.animation='none';sL.style.filter='drop-shadow(0 0 22px rgba(200,168,75,0.55))';sR.style.filter='none';startMouth('left');stopMouth('right');}
+  else{wR.style.opacity='1';wL.style.opacity='0.42';wR.style.animation='brea 3.5s ease-in-out infinite';wL.style.animation='none';sR.style.filter='drop-shadow(0 0 22px rgba(74,144,217,0.55))';sL.style.filter='none';startMouth('right');stopMouth('left');}
 }
-
-function buildDots() {
-  const container = document.getElementById('dots');
-  container.innerHTML = '';
-  SEGMENTS.forEach((s, i) => {
-    const b = document.createElement('button');
-    b.className = 'dot';
-    b.style.width = i === idx ? '20px' : '7px';
-    const isLeft = s.type==='opinion' || s.speaker==='left';
-    b.style.background = i === idx ? (isLeft ? '#c8a84b' : '#4a90d9') : '#1a2840';
-    if (s.type==='opinion' && i!==idx) b.style.border = '1px solid rgba(200,168,75,.27)';
-    b.onclick = () => { stopAll(); goTo(i); };
-    container.appendChild(b);
-  });
+function buildDots(){
+  const c=document.getElementById('dots');c.innerHTML='';
+  SEGMENTS.forEach((s,i)=>{const b=document.createElement('button');b.className='dot';b.style.width=i===idx?'20px':'7px';b.style.background=i===idx?(s.type==='opinion'||s.speaker==='left'?'#c8a84b':'#4a90d9'):'#1a2840';b.onclick=()=>{stopAll();goTo(i);};c.appendChild(b);});
 }
-
-function buildTicker() {
-  const items = SEGMENTS.filter(s=>s.ticker).map(s=>s.ticker).join('  •  ');
-  const full = items + '   ●   ' + items;
-  document.getElementById('ticker-inner').textContent = full;
+function buildTicker(){
+  const items=SEGMENTS.filter(s=>s.ticker).map(s=>s.ticker).join('  •  ');
+  document.getElementById('ticker-inner').textContent=items+'   ●   '+items;
 }
-
-function showOpinionCard(seg) {
-  document.getElementById('news-panel').style.display = 'none';
-  const card = document.getElementById('opinion-card');
-  card.style.display = 'flex';
-  card.innerHTML = `
-    <div style="background:${seg.pubBg};border-radius:8px 8px 0 0;padding:8px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #ddd">
-      <div style="display:flex;align-items:center">
-        <span style="font-size:15px;font-weight:bold;color:#000;font-family:Georgia,serif">${seg.publication}</span>
-        <span style="font-size:9px;font-family:'Courier New',monospace;letter-spacing:2px;background:#1a2840;color:#c8a84b;padding:2px 6px;border-radius:2px;margin-left:8px">OPINION</span>
-      </div>
-      <div style="display:flex;align-items:center;gap:8px">
-        <span style="font-size:9px;color:#aaa;font-family:'Courier New',monospace">${seg.date}</span>
-        <span style="font-size:9px;font-family:'Courier New',monospace;font-weight:bold;color:${seg.leanColor}">◈ ${seg.lean.toUpperCase()}</span>
-      </div>
-    </div>
-    <div style="background:rgba(248,246,240,.97);border-radius:0 0 8px 8px;padding:12px 14px;box-shadow:0 8px 32px rgba(0,0,0,.4)">
-      <div style="font-size:14px;line-height:1.3;color:#111;font-family:Georgia,serif;font-weight:bold;margin-bottom:6px">${seg.headline}</div>
-      <div style="font-size:10px;color:#999;font-family:'Courier New',monospace;margin-bottom:8px">By ${seg.author}</div>
-      <div style="font-size:12px;line-height:1.65;color:#2a2a2a;font-family:Georgia,serif;padding-left:10px;border-left:3px solid ${seg.leanColor}">${seg.text}</div>
-    </div>`;
-  card.style.animation = 'fadeSlideUp .5s ease forwards';
+function showOpinionCard(seg){
+  document.getElementById('news-panel').style.display='none';
+  const card=document.getElementById('opinion-card');card.style.display='flex';
+  card.innerHTML=`<div style="background:${seg.pubBg};border-radius:8px 8px 0 0;padding:8px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #ddd"><div style="display:flex;align-items:center"><span style="font-size:15px;font-weight:bold;color:#000;font-family:Georgia,serif">${seg.publication}</span><span style="font-size:9px;font-family:'Courier New',monospace;letter-spacing:2px;background:#1a2840;color:#c8a84b;padding:2px 6px;border-radius:2px;margin-left:8px">OPINION</span></div><div style="display:flex;align-items:center;gap:8px"><span style="font-size:9px;color:#aaa;font-family:'Courier New',monospace">${seg.date}</span><span style="font-size:9px;font-family:'Courier New',monospace;font-weight:bold;color:${seg.leanColor}">◈ ${seg.lean.toUpperCase()}</span></div></div><div style="background:rgba(248,246,240,.97);border-radius:0 0 8px 8px;padding:12px 14px;box-shadow:0 8px 32px rgba(0,0,0,.4)"><div style="font-size:14px;line-height:1.3;color:#111;font-family:Georgia,serif;font-weight:bold;margin-bottom:6px">${seg.headline}</div><div style="font-size:10px;color:#999;font-family:'Courier New',monospace;margin-bottom:8px">By ${seg.author}</div><div style="font-size:12px;line-height:1.65;color:#2a2a2a;font-family:Georgia,serif;padding-left:10px;border-left:3px solid ${seg.leanColor}">${seg.text}</div></div>`;
+  card.style.animation='fadeSlideUp .5s ease forwards';
 }
-
-function hideOpinionCard() {
-  document.getElementById('news-panel').style.display = '';
-  const card = document.getElementById('opinion-card');
-  card.style.display = 'none';
-  card.innerHTML = '';
+function hideOpinionCard(){document.getElementById('news-panel').style.display='';const card=document.getElementById('opinion-card');card.style.display='none';card.innerHTML='';}
+function updateScriptBox(seg){
+  const color=seg.speaker==='left'?'#c8a84b':'#4a90d9',name=seg.speaker==='left'?'ALEXANDRA CHEN':'SIMONE ABARA';
+  document.getElementById('speaker-dot').style.background=color;document.getElementById('speaker-dot').style.color=color;
+  document.getElementById('speaker-name').style.color=color;document.getElementById('speaker-name').textContent=name;
+  document.getElementById('script-box').style.borderLeftColor=color;document.getElementById('cursor').style.color=color;
+  document.getElementById('script-text').innerHTML='<span id="cursor" class="cursor" style="color:'+color+'">▌</span>';charIdx=0;
 }
-
-function updateScriptBox(seg) {
-  const color = seg.speaker === 'left' ? '#c8a84b' : '#4a90d9';
-  const name  = seg.speaker === 'left' ? 'ALEXANDRA CHEN' : 'SIMONE ABARA';
-  document.getElementById('speaker-dot').style.background = color;
-  document.getElementById('speaker-dot').style.color = color;
-  document.getElementById('speaker-name').style.color = color;
-  document.getElementById('speaker-name').textContent = name;
-  document.getElementById('script-box').style.borderLeftColor = color;
-  document.getElementById('cursor').style.color = color;
-  document.getElementById('script-text').innerHTML = '<span id="cursor" class="cursor" style="color:'+color+'">▌</span>';
-  charIdx = 0;
+function tickTypewriter(seg){
+  const msPerChar=Math.max(((seg.text.split(' ').length/(0.88*145))*60000)/seg.text.length,14);
+  charTimer=setInterval(()=>{
+    charIdx=Math.min(charIdx+1,seg.text.length);
+    const color=seg.speaker==='left'?'#c8a84b':'#4a90d9';
+    document.getElementById('script-text').innerHTML=seg.text.slice(0,charIdx)+(charIdx<seg.text.length?`<span class="cursor" style="color:${color}">▌</span>`:'');
+    if(charIdx>=seg.text.length) clearInterval(charTimer);
+  },msPerChar);
 }
-
-function tickTypewriter(seg) {
-  const words = seg.text.split(' ').length;
-  const estMs = (words / (0.88 * 145)) * 60000;
-  const msPerChar = Math.max(estMs / seg.text.length, 14);
-  charTimer = setInterval(() => {
-    charIdx = Math.min(charIdx + 1, seg.text.length);
-    const color = seg.speaker==='left' ? '#c8a84b' : '#4a90d9';
-    const cursor = charIdx < seg.text.length ? `<span class="cursor" style="color:${color}">▌</span>` : '';
-    document.getElementById('script-text').innerHTML = seg.text.slice(0, charIdx) + cursor;
-    if (charIdx >= seg.text.length) clearInterval(charTimer);
-  }, msPerChar);
+async function speakElevenLabs(text,voiceId,onEnd){
+  try{
+    const res=await fetch(WORKER_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({text,voiceId})});
+    if(!res.ok){console.error("Worker error",res.status);onEnd();return;}
+    const blob=await res.blob(),url=URL.createObjectURL(blob);
+    if(currentAudio){currentAudio.pause();currentAudio=null;}
+    currentAudio=new Audio(url);
+    currentAudio.onended=()=>{URL.revokeObjectURL(url);onEnd();};
+    currentAudio.onerror=()=>{URL.revokeObjectURL(url);onEnd();};
+    await currentAudio.play();
+  }catch(e){console.error("Error",e);onEnd();}
 }
-
-function stopAll() {
-  speechSynthesis.cancel();
-  clearInterval(charTimer);
-  clearTimeout(advTimer);
-  stopMouth('left'); stopMouth('right');
+function stopAll(){if(currentAudio){currentAudio.pause();currentAudio=null;}clearInterval(charTimer);clearTimeout(advTimer);stopMouth('left');stopMouth('right');}
+function advance(){stopAll();hideOpinionCard();idx=(idx+1)%SEGMENTS.length;runSegment();}
+function runSegment(){
+  const seg=SEGMENTS[idx];buildDots();
+  const isOp=seg.type==='opinion';
+  document.getElementById('opinion-badge').style.display=isOp?'':'none';
+  document.getElementById('ticker-label').style.background=isOp?'#c8a84b':'#e63946';
+  document.getElementById('ticker-label').textContent=isOp?'OPINION':'TONIGHT';
+  setAnchorState(isOp?null:seg.speaker);
+  if(isOp){hideOpinionCard();showOpinionCard(seg);advTimer=setTimeout(advance,10000);}
+  else{hideOpinionCard();updateScriptBox(seg);tickTypewriter(seg);speakElevenLabs(seg.text,seg.speaker==='left'?EL_LEFT:EL_RIGHT,()=>{clearInterval(charTimer);charIdx=seg.text.length;const el=document.getElementById('script-text');if(el)el.textContent=seg.text;advTimer=setTimeout(advance,800);});}
 }
-
-function advance() {
-  stopAll();
-  hideOpinionCard();
-  idx = (idx + 1) % SEGMENTS.length;
-  runSegment();
-}
-
-function speakText(text, voice, rate, pitch, onEnd) {
-  // iOS/mobile requires speech to be triggered in small chunks
-  speechSynthesis.cancel();
-  
-  const utt = new SpeechSynthesisUtterance(text);
-  if (voice) utt.voice = voice;
-  utt.rate = rate;
-  utt.pitch = pitch;
-  utt.volume = 1;
-  utt.onend = onEnd;
-  utt.onerror = () => { setTimeout(onEnd, 500); };
-
-  // iOS Safari workaround: speech sometimes stops mid-sentence
-  // Keep it alive with a periodic resume
-  const keepAlive = setInterval(() => {
-    if (speechSynthesis.speaking) {
-      speechSynthesis.pause();
-      speechSynthesis.resume();
-    } else {
-      clearInterval(keepAlive);
-    }
-  }, 10000);
-
-  utt.onend = () => { clearInterval(keepAlive); onEnd(); };
-  utt.onerror = () => { clearInterval(keepAlive); setTimeout(onEnd, 500); };
-
-  speechSynthesis.speak(utt);
-}
-
-function runSegment() {
-  const seg = SEGMENTS[idx];
-  buildDots();
-  const isOpinion = seg.type === 'opinion';
-  document.getElementById('opinion-badge').style.display = isOpinion ? '' : 'none';
-  document.getElementById('ticker-label').style.background = isOpinion ? '#c8a84b' : '#e63946';
-  document.getElementById('ticker-label').textContent = isOpinion ? 'OPINION' : 'TONIGHT';
-  setAnchorState(isOpinion ? null : seg.speaker);
-
-  if (isOpinion) {
-    hideOpinionCard();
-    showOpinionCard(seg);
-    const silence = new SpeechSynthesisUtterance(' ');
-    silence.volume = 0;
-    silence.onend = () => { advTimer = setTimeout(advance, 9000); };
-    speechSynthesis.speak(silence);
-  } else {
-    hideOpinionCard();
-    updateScriptBox(seg);
-
-    const isLeft = seg.speaker === 'left';
-    const utt = new SpeechSynthesisUtterance(seg.text);
-
-    // Re-fetch voice fresh every time — iOS sometimes loses voice references in chains
-    const freshVoices = speechSynthesis.getVoices();
-    if (isLeft) {
-      utt.voice = freshVoices.find(v => v.name === 'Samantha') || vLeft;
-    } else {
-      utt.voice = freshVoices.find(v => v.name === 'Daniel') || vRight;
-    }
-    utt.rate   = isLeft ? 0.88 : 0.84;
-    utt.pitch  = isLeft ? 1.05 : 0.96;
-    utt.volume = 1;
-
-    const keepAlive = setInterval(() => {
-      if (speechSynthesis.speaking) { speechSynthesis.pause(); speechSynthesis.resume(); }
-      else clearInterval(keepAlive);
-    }, 10000);
-
-    utt.onend = () => {
-      clearInterval(keepAlive);
-      clearInterval(charTimer);
-      charIdx = seg.text.length;
-      document.getElementById('script-text').textContent = seg.text;
-      advance();
-    };
-    utt.onerror = () => { clearInterval(keepAlive); advance(); };
-
-    speechSynthesis.speak(utt);
-    tickTypewriter(seg);
-  }
-}
-
-function togglePlay() {
-  playing = !playing;
-  document.getElementById('play-btn').textContent = playing ? '⏸' : '▶';
-  if (!playing) {
-    speechSynthesis.pause();
-    clearTimeout(advTimer);
-    clearInterval(charTimer);
-    stopMouth('left'); stopMouth('right');
-  } else {
-    if (speechSynthesis.paused) speechSynthesis.resume();
-    else runSegment();
-  }
-}
-
-function goTo(i) {
-  idx = i; playing = true;
-  document.getElementById('play-btn').textContent = '⏸';
-  runSegment();
-}
-
-function startBroadcast() {
-  // Don't override vLeft/vRight from dropdowns — use the hardcoded Samantha/Daniel
-  document.getElementById('overlay').style.display = 'none';
-  document.getElementById('play-btn').style.display = '';
-  started = true; playing = true;
-  buildTicker();
-  startBlinking();
-
-  const seg = SEGMENTS[0];
-  const isLeft = seg.speaker === 'left';
-  const utt = new SpeechSynthesisUtterance(seg.text);
-  utt.voice = isLeft ? vLeft : vRight;
-  utt.rate  = isLeft ? 0.88 : 0.84;
-  utt.pitch = isLeft ? 1.05 : 0.96;
-  utt.volume = 1;
-  utt.volume = 1;
-
-  const keepAlive = setInterval(() => {
-    if (speechSynthesis.speaking) { speechSynthesis.pause(); speechSynthesis.resume(); }
-    else clearInterval(keepAlive);
-  }, 10000);
-
-  utt.onend = () => {
-    clearInterval(keepAlive);
-    clearInterval(charTimer);
-    charIdx = seg.text.length;
-    document.getElementById('script-text').textContent = seg.text;
-    advTimer = setTimeout(advance, 900);
-  };
-  utt.onerror = () => { clearInterval(keepAlive); setTimeout(advance, 500); };
-
-  speechSynthesis.cancel();
-  speechSynthesis.speak(utt);
-
-  updateScriptBox(seg);
-  buildDots();
-  setAnchorState(seg.speaker);
-  tickTypewriter(seg);
-}
+function togglePlay(){playing=!playing;document.getElementById('play-btn').textContent=playing?'⏸':'▶';if(!playing){if(currentAudio)currentAudio.pause();clearTimeout(advTimer);clearInterval(charTimer);stopMouth('left');stopMouth('right');}else{if(currentAudio)currentAudio.play();else runSegment();}}
+function goTo(i){idx=i;playing=true;document.getElementById('play-btn').textContent='⏸';runSegment();}
+function startBroadcast(){document.getElementById('overlay').style.display='none';document.getElementById('play-btn').style.display='';started=true;playing=true;buildTicker();startBlinking();runSegment();}
 </script>
-
 </body>
 </html>
